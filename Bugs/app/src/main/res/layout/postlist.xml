@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/postWriter"
+        android:layout_below="@+id/newPostButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:clickable="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/postTitle"
+        android:layout_below="@+id/postWriter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:clickable="true"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/postImage"
+        android:layout_below="@+id/postTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/postText"
+        android:layout_below="@+id/postImage"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="9dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/com_facebook_blue"
+        android:textColor="@color/com_facebook_share_button_text_color"
+        android:text="share"
+        android:id="@+id/share_button"
+        android:onClick="FBshare"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="end"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>

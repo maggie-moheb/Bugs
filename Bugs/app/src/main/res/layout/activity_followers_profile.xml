@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.maggiemoheb.bugs.FollowersProfile">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/profilePicture"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ayoub Tany"
+        android:id="@+id/name"
+        android:layout_toRightOf="@+id/profilePicture"
+        android:layout_toEndOf="@+id/profilePicture"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="ayoub_seeboF7alo@gmail.com"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/email"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignStart="@+id/name" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
+        android:text="Personal Info"
+        android:textSize="23dp"
+        android:id="@+id/infoTitle"
+        android:layout_below="@+id/profilePicture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Location:"
+        android:id="@+id/locationTitle"
+        android:layout_below="@+id/infoTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Cairo, Egypt"
+        android:id="@+id/location"
+        android:layout_gravity="center"
+        android:layout_alignTop="@+id/locationTitle"
+        android:layout_alignLeft="@+id/email"
+        android:layout_alignStart="@+id/email" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Birth Date:"
+        android:id="@+id/birthDateTitle"
+        android:layout_below="@+id/locationTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="1/1/1901"
+        android:id="@+id/birthDate"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/gender"
+        android:layout_alignLeft="@+id/location"
+        android:layout_alignStart="@+id/location" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Gender:"
+        android:id="@+id/genderTitle"
+        android:layout_below="@+id/birthDateTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Male"
+        android:id="@+id/gender"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/birthDateTitle"
+        android:layout_alignLeft="@+id/birthDate"
+        android:layout_alignStart="@+id/birthDate" />
+
+</RelativeLayout>

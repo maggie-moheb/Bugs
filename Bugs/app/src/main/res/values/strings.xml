@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Bugs</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_create_post">CreatePost</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_followers_profile">FollowersProfile</string>
+    <string name="title_activity_followees_profile">FolloweesProfile</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login">Login In</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="or">__________Or__________</string>
+    <string name="facebookLogin">Log In With Facebook</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="signUp">Sign Up</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="title_activity_news_feed">NewsFee</string>
+    <string name="title_activity_followers">followers</string>
+</resources>
