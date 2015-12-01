@@ -303,6 +303,6 @@ public class Profile extends ListActivity {
     }
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(Profile.this, CreatePost.class));
+        startActivity(new Intent(Profile.this, Profile.class));
     }
 }

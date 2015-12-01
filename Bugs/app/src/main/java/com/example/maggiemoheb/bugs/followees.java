@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -154,5 +155,10 @@ public class followees extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        startActivity(new Intent(followees.this, FolloweesProfile.class));
+
     }
 }

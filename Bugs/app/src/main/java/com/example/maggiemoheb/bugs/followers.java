@@ -3,7 +3,6 @@ package com.example.maggiemoheb.bugs;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -21,9 +20,6 @@ import android.widget.ListView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.share.model.ShareContent;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -148,16 +144,7 @@ public class followers extends ListActivity {
         getMenuInflater().inflate(R.menu.menu_followers, menu);
         return true;
     }
-    public void FBshare(View view) {
 
-        ShareContent linkContent = new ShareLinkContent.Builder()
-                .setContentDescription("https://developers.facebook.com/bugs/332619626816423")
-                .setContentTitle("https://developers.facebook.com/bugs/332619626816423")
-                .setContentUrl(Uri.parse("https://developers.facebook.com/bugs/332619626816423"))
-                .build();
-        ShareDialog s = new ShareDialog(this);
-        s.show(linkContent);
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

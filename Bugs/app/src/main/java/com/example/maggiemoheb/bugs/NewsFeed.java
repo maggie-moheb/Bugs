@@ -3,7 +3,6 @@ package com.example.maggiemoheb.bugs;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,10 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.facebook.share.model.ShareContent;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
 
@@ -159,15 +154,7 @@ public class NewsFeed extends ListActivity {
         getMenuInflater().inflate(R.menu.menu_news_feed, menu);
         return true;
     }
-    public void FBshare(View view) {
-        ShareContent linkContent = new ShareLinkContent.Builder()
-                .setContentDescription("https://developers.facebook.com/bugs/332619626816423")
-                .setContentTitle("https://developers.facebook.com/bugs/332619626816423")
-                .setContentUrl(Uri.parse("https://developers.facebook.com/bugs/332619626816423"))
-                .build();
-        ShareDialog s = new ShareDialog(this);
-        s.show(linkContent);
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -186,6 +173,6 @@ public class NewsFeed extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Toast.makeText(getApplicationContext(), "item clicked!", Toast.LENGTH_LONG).show();
         super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(NewsFeed.this, CreatePost.class));
+        startActivity(new Intent(NewsFeed.this, Profile.class));
     }
 }

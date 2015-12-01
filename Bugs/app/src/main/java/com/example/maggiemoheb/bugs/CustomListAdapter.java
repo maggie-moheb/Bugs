@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +20,6 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private ArrayList<Integer> imgId;
     private ArrayList<String> tempItemname;
     private ArrayList<Integer> tempImgid;
-    Button addRoom;
     public ArrayList<String> getItemName() {
         return itemName;
     }

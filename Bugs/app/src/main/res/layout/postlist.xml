@@ -48,18 +48,18 @@
         android:layout_below="@+id/postImage"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="9dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/com_facebook_blue"
-        android:textColor="@color/com_facebook_share_button_text_color"
-        android:text="share"
-        android:id="@+id/share_button"
-        android:onClick="FBshare"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginRight="20dp"
-        android:layout_gravity="end"
-        android:layout_marginBottom="20dp"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/com_facebook_blue"-->
+        <!--android:textColor="@color/com_facebook_share_button_text_color"-->
+        <!--android:text="share"-->
+        <!--android:id="@+id/share_button"-->
+        <!--android:onClick="FBshare"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_below="@+id/login_button"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:layout_marginBottom="20dp"/>-->
 </LinearLayout>
