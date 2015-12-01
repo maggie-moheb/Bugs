@@ -19,4 +19,6 @@
     <string name="lastName">Last Name</string>
     <string name="title_activity_news_feed">NewsFee</string>
     <string name="title_activity_followers">followers</string>
+    <string name="title_activity_view_notifications">ViewNotifications</string>
+    <string name="title_activity_view_post">ViewPost</string>
 </resources>
