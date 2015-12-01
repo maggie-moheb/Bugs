@@ -21,4 +21,6 @@
     <string name="title_activity_followers">followers</string>
     <string name="title_activity_followers_followees">FollowersFolloweesActivity</string>
     <string name="title_activity_followees">followees</string>
+    <string name="openDrawer">drawer_open</string>
+    <string name="closeDrawer">drawer_close</string>
 </resources>
