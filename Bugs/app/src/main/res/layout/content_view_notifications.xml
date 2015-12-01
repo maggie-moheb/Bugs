@@ -15,7 +15,8 @@
     android:weightSum="1"
     android:baselineAligned="false"
     android:orientation="vertical"
-    android:layout_gravity="bottom">
+    android:layout_gravity="bottom"
+    android:background="#608de7">
 
     <TextView
         android:layout_width="fill_parent"
@@ -24,7 +25,8 @@
         android:id="@+id/textView3"
         android:layout_gravity=""
         android:textColor="#050404"
-        android:layout_weight="0.14" />
+        android:layout_weight="0.14"
+        android:background="#608de7" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -33,7 +35,8 @@
         android:text="Ola has commented on your post"
         android:id="@+id/textView5"
         android:textColor="#0a0202"
-        android:layout_weight="0.13" />
+        android:layout_weight="0.13"
+        android:background="#608de7" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -50,6 +53,6 @@
         android:text="Haidy has sent you a friend request"
         android:id="@+id/textView7"
         android:textColor="#0c0101"
-        android:background="#ffffff"
+        android:background="#608de7"
         android:layout_weight="0.12" />
 </LinearLayout>
