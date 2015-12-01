@@ -20,8 +20,8 @@ import android.widget.TabHost;
 
 public class FollowersFolloweesActivity extends TabActivity {
     TabHost tabHost;
-    String titles[] = {"Profile", "NewsFeed", "Followers", "Followees", "Post", "Settings", "Logout"};
-    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followers, R.mipmap.followees, R.mipmap.post, R.mipmap.settings, R.mipmap.logout};
+    String titles[] = {"Profile", "NewsFeed", "Friends", "Settings", "Logout"};
+    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees, R.mipmap.settings, R.mipmap.logout};
     String name;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
@@ -78,18 +78,12 @@ public class FollowersFolloweesActivity extends TabActivity {
                             startActivity(new Intent(getApplicationContext(), NewsFeed.class));
                             break;
                         case 3:
-                            startActivity(new Intent(getApplicationContext(), followers.class));
+                            startActivity(new Intent(getApplicationContext(), FollowersFolloweesActivity.class));
                             break;
                         case 4:
-                            startActivity(new Intent(getApplicationContext(), followees.class));
-                            break;
-                        case 5:
-                            startActivity(new Intent(getApplicationContext(), CreatePost.class));
-                            break;
-                        case 6:
                             startActivity(new Intent(getApplicationContext(),Settings.class));
                             break;
-                        case 7:
+                        case 5:
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                     }
