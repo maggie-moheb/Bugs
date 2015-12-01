@@ -7,20 +7,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 
 public class CreatePost extends ActionBarActivity {
     Button submit;
+    ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
+
+        logo = (ImageView)findViewById(R.id.logo);
+        logo.setImageResource(R.mipmap.bug);
+
         submit = (Button)findViewById(R.id.submit);
         submit.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Post Created!!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(CreatePost.this, Profile.class));
+                finish();
             }
         });
     }

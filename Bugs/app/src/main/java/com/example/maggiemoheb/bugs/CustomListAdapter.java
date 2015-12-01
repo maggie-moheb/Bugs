@@ -55,8 +55,8 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         TextView txtTitle = (TextView) rowView.findViewById(R.id.namefollower);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imagefollower);
 
-        txtTitle.setText(itemName.get(position));
-        imageView.setImageResource(imgId.get(position));
+        txtTitle.setText(tempItemname.get(position));
+        imageView.setImageResource(tempImgid.get(position));
         return rowView;
     }
 

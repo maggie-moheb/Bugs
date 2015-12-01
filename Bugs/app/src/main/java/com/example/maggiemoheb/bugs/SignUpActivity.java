@@ -35,6 +35,7 @@ public class SignUpActivity extends ActionBarActivity {
                 else if (password.getText().toString().length()<6)
                     Toast.makeText(getApplicationContext(), "your password couldn't be less than 6 characters", Toast.LENGTH_LONG).show();
                 else if(!email.getText().toString().equals("") && !password.getText().toString().equals("") && !firstName.getText().toString().equals("") && !lastName.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Hello "+firstName.getText()+"!! You have signed up successfully", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(SignUpActivity.this, Profile.class));
                 }
             }
