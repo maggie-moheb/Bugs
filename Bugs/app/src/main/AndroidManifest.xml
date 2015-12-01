@@ -16,6 +16,7 @@
         <activity
             android:name=".CreatePost"
             android:label="@string/title_activity_create_post" >
+
         </activity>
         <activity
             android:name=".Settings"
@@ -24,19 +25,21 @@
         <activity
             android:name=".FollowersProfile"
             android:label="@string/title_activity_followers_profile" >
+
         </activity>
         <activity
             android:name=".FolloweesProfile"
             android:label="@string/title_activity_followees_profile" >
+
         </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
-            <intent-filter>
+       <!--     <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> -->
         </activity>
         <activity
             android:name=".SignUpActivity"
@@ -53,6 +56,11 @@
         <activity
             android:name=".FollowersFolloweesActivity"
             android:label="@string/title_activity_followers_followees" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".followees"
