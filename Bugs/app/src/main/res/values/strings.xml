@@ -19,4 +19,6 @@
     <string name="lastName">Last Name</string>
     <string name="title_activity_news_feed">NewsFee</string>
     <string name="title_activity_followers">followers</string>
+    <string name="title_activity_followers_followees">FollowersFolloweesActivity</string>
+    <string name="title_activity_followees">followees</string>
 </resources>
