@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class CreatePost extends ActionBarActivity {
@@ -20,6 +21,8 @@ public class CreatePost extends ActionBarActivity {
         submit.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Post Created!!", Toast.LENGTH_LONG).show();
+
                 startActivity(new Intent(CreatePost.this, Profile.class));
             }
         });
