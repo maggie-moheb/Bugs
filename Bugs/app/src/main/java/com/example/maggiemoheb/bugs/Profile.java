@@ -36,6 +36,7 @@ public class Profile extends ListActivity {
     private TextView gender;
     private EditText editGender;
 
+    ImageView logo;
     private ArrayList<String> postTitles;
     private ArrayList<String> postImages;
     private ArrayList<String> postTexts;
@@ -49,6 +50,9 @@ public class Profile extends ListActivity {
 
         mImageView = (ImageView)findViewById(R.id.profilePicture);
         mImageView.setImageResource(R.drawable.profilepic);
+
+        logo = (ImageView)findViewById(R.id.logo);
+        logo.setImageResource(R.mipmap.bug);
 
         name = (TextView)findViewById(R.id.name);
         editName = (EditText)findViewById(R.id.editName);

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,11 +23,29 @@ public class NewsFeed extends ListActivity {
     private ArrayList<String> postImages;
     private ArrayList<String> postTexts;
     private ArrayList<String> postWriters;
+    ImageView profilePic;
+    ImageView logo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
+        profilePic = (ImageView)findViewById(R.id.profilePic);
+        profilePic.setImageResource(R.drawable.profilepic);
+
+        profilePic.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NewsFeed.this, Profile.class));
+
+            }
+        });
+        logo = (ImageView)findViewById(R.id.logo);
+        logo.setImageResource(R.mipmap.bug);
+
+
         postTitles = new ArrayList<>();
         postImages = new ArrayList<>();
         postTexts = new ArrayList<>();

@@ -12,7 +12,6 @@
         <activity
             android:name=".Profile"
             android:label="@string/app_name" >
-
         </activity>
         <activity
             android:name=".CreatePost"
@@ -50,6 +49,14 @@
         <activity
             android:name=".followers"
             android:label="@string/title_activity_followers" >
+        </activity>
+        <activity
+            android:name=".FollowersFolloweesActivity"
+            android:label="@string/title_activity_followers_followees" >
+        </activity>
+        <activity
+            android:name=".followees"
+            android:label="@string/title_activity_followees" >
         </activity>
     </application>
 
