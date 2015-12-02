@@ -24,4 +24,5 @@
     <string name="openDrawer">drawer_open</string>
     <string name="closeDrawer">drawer_close</string>
     <string name="facebook_app_id">892627414184492</string>
+    <string name="title_activity_view_post">ViewPost</string>
 </resources>

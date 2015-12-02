@@ -173,6 +173,6 @@ public class NewsFeed extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Toast.makeText(getApplicationContext(), "item clicked!", Toast.LENGTH_LONG).show();
         super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(NewsFeed.this, Profile.class));
+        startActivity(new Intent(NewsFeed.this, ViewPost.class));
     }
 }

@@ -12,6 +12,7 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1491979794430761"
@@ -20,6 +21,7 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1491979794430761"
             android:exported="true" />
+
         <activity
             android:name=".Profile"
             android:label="@string/app_name" >
@@ -32,7 +34,6 @@
         <activity
             android:name=".CreatePost"
             android:label="@string/title_activity_create_post" >
-
         </activity>
         <activity
             android:name=".Settings"
@@ -41,17 +42,15 @@
         <activity
             android:name=".FollowersProfile"
             android:label="@string/title_activity_followers_profile" >
-
         </activity>
         <activity
             android:name=".FolloweesProfile"
             android:label="@string/title_activity_followees_profile" >
-
         </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
-         <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -76,6 +75,10 @@
         <activity
             android:name=".followees"
             android:label="@string/title_activity_followees" >
+        </activity>
+        <activity
+            android:name=".ViewPost"
+            android:label="@string/title_activity_view_post" >
         </activity>
     </application>
 

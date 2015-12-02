@@ -10,7 +10,14 @@ public class Post {
     private String photoDir;
     private int user_id;
     private int user_dest_id;
-
+    public Post(int id, String title, String text, String photoDir, int user_id, int user_dest_id) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.photoDir = photoDir;
+        this.user_id = user_id;
+        this.user_dest_id = user_dest_id;
+    }
     public int getId() {
         return this.id;
     }
