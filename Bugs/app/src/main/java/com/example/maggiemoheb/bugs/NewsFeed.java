@@ -3,6 +3,8 @@ package com.example.maggiemoheb.bugs;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -37,14 +39,19 @@ public class NewsFeed extends ListActivity {
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
+    RoundImage roundedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         profilePic = (ImageView)findViewById(R.id.profilePic);
-        profilePic.setImageResource(R.drawable.profilepic);
-
+       // profilePic.setImageResource(R.drawable.profilepic);
+      //  profilePic = (ImageView)findViewById(R.id.profilePicture);
+        // mImageView.setImageResource(R.drawable.profilepic);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
+        roundedImage = new RoundImage(bm);
+        profilePic.setImageDrawable(roundedImage);
         profilePic.setOnClickListener(new View.OnClickListener() {
 
             @Override

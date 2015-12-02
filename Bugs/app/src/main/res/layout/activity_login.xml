@@ -84,9 +84,9 @@
         android:text="@string/signUp"
         android:id="@+id/btnSignUp"
         android:onClick="onClick"
-        android:background="#bd2828"
         android:textColor="@color/com_facebook_button_login_silver_background_color"
         android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_button"
         android:layout_below="@+id/btnLogin"
         android:layout_centerHorizontal="true" />
     <com.facebook.login.widget.LoginButton

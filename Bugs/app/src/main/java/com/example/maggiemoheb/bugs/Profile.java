@@ -3,6 +3,8 @@ package com.example.maggiemoheb.bugs;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -59,6 +61,7 @@ public class Profile extends ListActivity {
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
+    RoundImage roundedImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +70,10 @@ public class Profile extends ListActivity {
 //bind imageview with your xml's id
 
         mImageView = (ImageView)findViewById(R.id.profilePicture);
-        mImageView.setImageResource(R.drawable.profilepic);
-
+       // mImageView.setImageResource(R.drawable.profilepic);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
+        roundedImage = new RoundImage(bm);
+        mImageView.setImageDrawable(roundedImage);
         logo = (ImageView)findViewById(R.id.logo);
         logo.setImageResource(R.mipmap.bug);
 
