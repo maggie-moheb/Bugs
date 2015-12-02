@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -144,9 +145,9 @@ public class Notifications extends ListActivity {
 
         return super.onOptionsItemSelected(item);
     }
-//    protected void onListItemClick(ListView l, View v, int position, long id) {
-//        super.onListItemClick(l, v, position, id);
-//        startActivity(new Intent(Notifications.this, ViewPost.class));
-//
-//    }
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        startActivity(new Intent(Notifications.this, ViewPost.class));
+
+    }
 }
