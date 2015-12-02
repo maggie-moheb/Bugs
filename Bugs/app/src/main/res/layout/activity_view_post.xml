@@ -70,13 +70,15 @@
         android:layout_height="wrap_content"
         android:background="@color/com_facebook_blue"
         android:textColor="@color/com_facebook_share_button_text_color"
-        android:text="Share"
+        android:text="Share on Facebook"
         android:id="@+id/share_button"
         android:onClick="FBshare"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/postText"
         android:layout_gravity="end"
         android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -87,6 +89,28 @@
         android:layout_below="@+id/share_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/android:list">
+        <TableRow>
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:hint="Write a comment"
+                android:id="@+id/comment_text"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comment"
+                android:textColor="#ffffff"
+                android:layout_gravity="end"
+                android:background="@drawable/rounded_button"
+                android:id="@+id/comment_button"/>
+            </TableRow>
+    </TableLayout>
+
 </RelativeLayout>
 <android.support.v7.widget.RecyclerView
 android:id="@+id/RecyclerView"

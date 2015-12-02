@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -43,6 +44,8 @@ public class ViewPost extends ListActivity {
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
+    EditText commentText;
+    Button commentButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -60,10 +63,18 @@ public class ViewPost extends ListActivity {
             }
         });
         Post dummyPost = new Post(1, "Hello this is a new post for trial", "Hello this is a new post for trying again", "", 1, 1);
-
         postWriter.setText("Maggie");
         postTitle.setText(dummyPost.getTitle());
         postText.setText(dummyPost.getText());
+        commentText = (EditText)findViewById(R.id.comment_text);
+        commentButton = (Button) findViewById(R.id.comment_button);
+        commentButton.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                commentText.setText("");
+            }
+        });
         ArrayList<String> commentImages = new ArrayList<>();
         ArrayList<String> commentTexts = new ArrayList<>();
         ArrayList<String>commentWriters = new ArrayList<>();
