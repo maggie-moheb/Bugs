@@ -167,4 +167,10 @@ public class followers extends ListActivity {
         startActivity(new Intent(followers.this, FollowersProfile.class));
 
     }
+
+    public void onClick(View view) {
+        startActivity(new Intent(followers.this, FollowersProfile.class));
+
+    }
+
 }

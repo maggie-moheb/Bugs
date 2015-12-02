@@ -16,18 +16,24 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"/>
-    <TextView
-        android:id="@+id/namefollower"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:paddingTop="5dp"
-        android:longClickable="false"
-        android:linksClickable="false"
-        android:textAlignment="center"
-        android:layout_weight="0.03"/>
-
+        <TextView
+            android:id="@+id/namefollower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingTop="5dp"
+            android:longClickable="false"
+            android:linksClickable="true"
+            android:onClick="onClick"
+            android:textAlignment="center"
+            android:layout_weight="0.03"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unfollow"
+            android:id="@+id/followButton" />
 
     </TableRow>
 </TableLayout>
+
 </LinearLayout>

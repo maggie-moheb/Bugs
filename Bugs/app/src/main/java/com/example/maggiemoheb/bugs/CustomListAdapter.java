@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -52,7 +54,21 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.mylist, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.namefollower);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imagefollower);
+        final Button followButton = (Button)rowView.findViewById(R.id.followButton);
+        followButton.setOnClickListener( new Button.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+                if(followButton.getText() == "Unfollow") {
+                    followButton.setText("Follow");
+                    Toast.makeText(context,"You have successfully followed this person", Toast.LENGTH_LONG).show();
+                } else {
+                    followButton.setText("Unfollow");
+                    Toast.makeText(context,"You have successfully unfollowed this person", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
         txtTitle.setText(tempItemname.get(position));
         imageView.setImageResource(tempImgid.get(position));
         return rowView;

@@ -29,6 +29,7 @@ public class FollowersFolloweesActivity extends TabActivity {
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

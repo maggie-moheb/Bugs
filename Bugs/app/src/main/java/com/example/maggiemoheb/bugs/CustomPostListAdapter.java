@@ -38,6 +38,7 @@ public class CustomPostListAdapter extends ArrayAdapter<String> {
         TextView postTitle = (TextView) rowView.findViewById(R.id.postTitle);
         ImageView postImage = (ImageView) rowView.findViewById(R.id.postImage);
         TextView postText = (TextView) rowView.findViewById(R.id.postText);
+
         postWriter.setText(postWriters.get(position));
         postTitle.setText(postTitles.get(position));
         Picasso.with(context).load(this.postImages.get(position)).placeholder(R.drawable.profilepic).error(R.drawable.profilepic).into(postImage);
