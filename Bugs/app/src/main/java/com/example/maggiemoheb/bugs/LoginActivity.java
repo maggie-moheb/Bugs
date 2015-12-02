@@ -107,6 +107,8 @@ public class LoginActivity extends ActionBarActivity {
                                 "Auth Token: "
                                 + loginResult.getAccessToken().getToken()
                 );
+                startActivity(new Intent(getApplicationContext(), NewsFeed.class));
+
             }
 
             @Override
