@@ -180,6 +180,7 @@ public class Profile extends ListActivity {
             public boolean onLongClick(View view) {
                 gender.setVisibility(View.INVISIBLE);
                 editGender.setVisibility(View.VISIBLE);
+                editGender.setText(gender.getText());
                 return true;
             }
         });

@@ -3,6 +3,8 @@ package com.example.maggiemoheb.bugs;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -46,6 +49,9 @@ public class ViewPost extends ListActivity {
     ActionBarDrawerToggle mDrawerToggle;
     EditText commentText;
     Button commentButton;
+    ImageView imageCommenter;
+    RoundImage roundedImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -75,6 +81,11 @@ public class ViewPost extends ListActivity {
                 commentText.setText("");
             }
         });
+        imageCommenter = (ImageView) findViewById(R.id.imageCommenter);
+        //imageCommenter.setImageResource(R.drawable.profilepic);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
+        roundedImage = new RoundImage(bm);
+        imageCommenter.setImageDrawable(roundedImage);
         ArrayList<String> commentImages = new ArrayList<>();
         ArrayList<String> commentTexts = new ArrayList<>();
         ArrayList<String>commentWriters = new ArrayList<>();

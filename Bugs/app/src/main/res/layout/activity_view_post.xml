@@ -13,7 +13,7 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#ffbb00" >
+        android:background="#24a866" >
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -94,8 +94,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/android:list">
         <TableRow>
+            <ImageView
+                android:id="@+id/imageCommenter"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"/>
             <EditText
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:hint="Write a comment"
@@ -114,7 +122,7 @@
 </RelativeLayout>
 <android.support.v7.widget.RecyclerView
 android:id="@+id/RecyclerView"
-android:layout_width="320dp"
+android:layout_width="200dp"
 android:layout_height="match_parent"
 android:layout_gravity="left"
 android:background="#545454"
