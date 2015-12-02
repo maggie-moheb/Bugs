@@ -1,33 +1,40 @@
 package com.example.maggiemoheb.bugs;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 
 public class LoginActivity extends ActionBarActivity {
     Button btnLogin;
-    Button btnFacebookLogin;
+    private LoginButton loginButton;
+    private TextView info;
+    private CallbackManager callbackManager;
     Button btnSignUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.btnFacebookLogin);
+        info = (TextView) findViewById(R.id.info);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnFacebookLogin = (Button) findViewById(R.id.btnFacebookLogin);
         btnSignUp= (Button) findViewById(R.id.btnSignUp);
-        btnFacebookLogin.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, NewsFeed.class));
-            }
-        });
         btnSignUp.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +65,10 @@ public class LoginActivity extends ActionBarActivity {
         });
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -82,5 +92,33 @@ public class LoginActivity extends ActionBarActivity {
     }
     public boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+    public void FBlogin(View view) {
+//        callbackManager = CallbackManager.Factory.create();
+        info = (TextView) findViewById(R.id.info);
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                info.setText(
+                        "User ID: "
+                                + loginResult.getAccessToken().getUserId()
+                                + "\n" +
+                                "Auth Token: "
+                                + loginResult.getAccessToken().getToken()
+                );
+            }
+
+            @Override
+            public void onCancel() {
+                info.setText("Login attempt canceled.");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                info.setText("Login attempt failed.");
+
+            }
+        });
     }
 }

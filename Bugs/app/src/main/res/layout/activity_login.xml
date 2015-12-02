@@ -67,34 +67,26 @@
         android:layout_above="@+id/btnLogin" />
 
     <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/or"-->
-        <!--android:id="@+id/or"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:layout_below="@+id/btnLogin"-->
-        <!--android:layout_centerHorizontal="true" />-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/or"-->
+    <!--android:id="@+id/or"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:layout_below="@+id/btnLogin"-->
+    <!--android:layout_centerHorizontal="true" />-->
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:text="@string/facebookLogin"
         android:id="@+id/btnFacebookLogin"
         android:background="@color/com_facebook_blue"
         android:textColor="@color/com_facebook_button_login_silver_background_color"
-        android:onClick="onClick"
+        android:onClick="FBlogin"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/btnLogin"
         android:layout_centerHorizontal="true" />
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/or"-->
-        <!--android:id="@+id/or2"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:layout_below="@+id/btnFacebookLogin"-->
-        <!--android:layout_centerHorizontal="true" />-->
 
     <Button
         android:layout_width="400dp"
@@ -107,6 +99,10 @@
         android:layout_marginTop="5dp"
         android:layout_below="@+id/btnFacebookLogin"
         android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"/>
 
 
 </RelativeLayout>
