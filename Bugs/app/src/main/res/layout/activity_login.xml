@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/btnLogin"
-        android:background="#bd2828"
+        android:background="@drawable/rounded_button"
         android:textColor="@color/com_facebook_button_login_silver_background_color"
         android:onClick="onClick"
         android:layout_marginTop="20dp"
@@ -66,14 +66,7 @@
         android:src="@mipmap/password"
         android:layout_above="@+id/btnLogin" />
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/or"-->
-    <!--android:id="@+id/or"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:layout_below="@+id/btnLogin"-->
-    <!--android:layout_centerHorizontal="true" />-->
+
     <Button
         android:layout_width="400dp"
         android:layout_height="wrap_content"
