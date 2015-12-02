@@ -23,7 +23,7 @@ import models.Notification;
 
 
 public class Notifications extends ListActivity {
-    private CustomListAdapter adapter2;
+    private CustomNotificationListAdapter adapter2;
     private  ArrayList<Notification> notifications;
     private int[] photos = new int[]{R.drawable.n};
     String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
@@ -40,7 +40,7 @@ public class Notifications extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
         notifications = new ArrayList<Notification>();
-        notifications.add(new Notification("1","2","Youmna does not like your post :D "));
+        notifications.add(new Notification("1","2","Youmna Salah has shared a post on your wall."));
         Iterator<Notification> iterator = notifications.iterator();
         ArrayList<String> notify = new ArrayList<String>();
         ArrayList<Integer> img = new ArrayList<Integer>();
@@ -50,7 +50,7 @@ public class Notifications extends ListActivity {
         img.add(photos[0]);
 //            i--;
 //        }
-        adapter2 = new CustomListAdapter(Notifications.this, notify,img);
+        adapter2 = new CustomNotificationListAdapter(Notifications.this, notify);
         setListAdapter(adapter2);
         registerForContextMenu(getListView());
 

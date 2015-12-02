@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class CustomCommentListAdapter extends ArrayAdapter<String> {
     private Activity context;
-    private ArrayList<String> postTitles;
     private ArrayList<String> commentImages;
     private ArrayList<String> commentTexts;
     private ArrayList<String> commentWriters;
