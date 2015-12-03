@@ -169,7 +169,7 @@ public class FolloweesProfile extends ListActivity {
     }
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(FolloweesProfile.this, CreatePost.class));
+        startActivity(new Intent(FolloweesProfile.this, ViewPost.class));
     }
     public void followersFolloweesActivity(View view) {
         startActivity(new Intent(FolloweesProfile.this, FollowersFolloweesActivity.class));
