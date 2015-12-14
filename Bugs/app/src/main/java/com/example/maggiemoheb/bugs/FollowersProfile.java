@@ -2,6 +2,8 @@ package com.example.maggiemoheb.bugs;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -20,8 +22,8 @@ import android.widget.ImageView;
 public class FollowersProfile extends ActionBarActivity {
     ImageView mImageView;
     ImageView logo;
-    String titles[] = {"Profile", "NewsFeed", "Friends", "Settings", "Logout"};
-    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees, R.mipmap.settings, R.mipmap.logout};
+    String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
+    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
@@ -29,12 +31,17 @@ public class FollowersProfile extends ActionBarActivity {
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
+    RoundImage roundedImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followers_profile);
         mImageView = (ImageView)findViewById(R.id.profilePicture);
-        mImageView.setImageResource(R.drawable.computer);
+        // mImageView.setImageResource(R.drawable.profilepic);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
+        roundedImage = new RoundImage(bm);
+        mImageView.setImageDrawable(roundedImage);
         logo = (ImageView)findViewById(R.id.logo);
         logo.setImageResource(R.mipmap.bug);
 
@@ -71,9 +78,12 @@ public class FollowersProfile extends ActionBarActivity {
                             startActivity(new Intent(getApplicationContext(), FollowersFolloweesActivity.class));
                             break;
                         case 4:
-                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            startActivity(new Intent(getApplicationContext(),Notifications.class));
                             break;
                         case 5:
+                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            break;
+                        case 6:
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                     }

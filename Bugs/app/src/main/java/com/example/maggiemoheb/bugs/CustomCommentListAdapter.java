@@ -17,14 +17,13 @@ import java.util.ArrayList;
  */
 public class CustomCommentListAdapter extends ArrayAdapter<String> {
     private Activity context;
-    private ArrayList<String> postTitles;
     private ArrayList<String> commentImages;
     private ArrayList<String> commentTexts;
     private ArrayList<String> commentWriters;
 
 
     public CustomCommentListAdapter(Activity context, ArrayList<String> commentImages, ArrayList<String> commentTexts, ArrayList<String> commentWriters) {
-        super(context, R.layout.mylist, commentWriters);
+        super(context, R.layout.commentlist, commentWriters);
         this.context = context;
         this.commentImages = commentImages;
         this.commentTexts = commentTexts;
@@ -33,7 +32,7 @@ public class CustomCommentListAdapter extends ArrayAdapter<String> {
 
     public View getView(final int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.mylist, null, true);
+        View rowView = inflater.inflate(R.layout.commentlist, null, true);
         TextView commentBody = (TextView)rowView.findViewById(R.id.namefollower);
         ImageView commenterImage = (ImageView) rowView.findViewById(R.id.imagefollower);
         commentBody.setText(commentWriters.get(position)+": "+commentTexts.get(position));

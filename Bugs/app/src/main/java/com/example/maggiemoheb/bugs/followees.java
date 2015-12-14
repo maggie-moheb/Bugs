@@ -14,8 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.facebook.CallbackManager;
@@ -33,11 +31,10 @@ public class followees extends ListActivity {
     private ArrayList<Integer> iconFollowers;
     private ArrayList<User> followers;
     private CustomListAdapter adapter2;
-    ImageView logo;
-    private Button shareButton;
     private CallbackManager callbackManager;
-    String titles[] = {"Profile", "NewsFeed", "Friends", "Settings", "Logout"};
-    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees, R.mipmap.settings, R.mipmap.logout};
+
+    String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
+    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
@@ -100,9 +97,12 @@ public class followees extends ListActivity {
                             startActivity(new Intent(getApplicationContext(), FollowersFolloweesActivity.class));
                             break;
                         case 4:
-                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            startActivity(new Intent(getApplicationContext(),Notifications.class));
                             break;
                         case 5:
+                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            break;
+                        case 6:
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                     }
@@ -158,6 +158,10 @@ public class followees extends ListActivity {
     }
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        startActivity(new Intent(followees.this, FolloweesProfile.class));
+
+    }
+    public void onClick(View view) {
         startActivity(new Intent(followees.this, FolloweesProfile.class));
 
     }

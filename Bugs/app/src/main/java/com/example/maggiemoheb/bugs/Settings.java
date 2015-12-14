@@ -17,8 +17,8 @@ import android.view.View;
 
 
 public class Settings extends ActionBarActivity {
-    String titles[] = {"Profile", "NewsFeed", "Friends", "Settings", "Logout"};
-    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees, R.mipmap.settings, R.mipmap.logout};
+    String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
+    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
@@ -62,9 +62,12 @@ public class Settings extends ActionBarActivity {
                             startActivity(new Intent(getApplicationContext(), FollowersFolloweesActivity.class));
                             break;
                         case 4:
-                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            startActivity(new Intent(getApplicationContext(),Notifications.class));
                             break;
                         case 5:
+                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            break;
+                        case 6:
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                     }

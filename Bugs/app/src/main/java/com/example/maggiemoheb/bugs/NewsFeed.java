@@ -3,6 +3,8 @@ package com.example.maggiemoheb.bugs;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -28,8 +30,8 @@ public class NewsFeed extends ListActivity {
     private ArrayList<String> postWriters;
     ImageView profilePic;
     ImageView logo;
-    String titles[] = {"Profile", "NewsFeed", "Friends", "Settings", "Logout"};
-    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees, R.mipmap.settings, R.mipmap.logout};
+    String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
+    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
@@ -37,14 +39,19 @@ public class NewsFeed extends ListActivity {
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
+    RoundImage roundedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         profilePic = (ImageView)findViewById(R.id.profilePic);
-        profilePic.setImageResource(R.drawable.profilepic);
-
+       // profilePic.setImageResource(R.drawable.profilepic);
+      //  profilePic = (ImageView)findViewById(R.id.profilePicture);
+        // mImageView.setImageResource(R.drawable.profilepic);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
+        roundedImage = new RoundImage(bm);
+        profilePic.setImageDrawable(roundedImage);
         profilePic.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -113,9 +120,12 @@ public class NewsFeed extends ListActivity {
                             startActivity(new Intent(getApplicationContext(), FollowersFolloweesActivity.class));
                             break;
                         case 4:
-                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            startActivity(new Intent(getApplicationContext(),Notifications.class));
                             break;
                         case 5:
+                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            break;
+                        case 6:
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                     }

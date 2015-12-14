@@ -1,12 +1,25 @@
 package com.example.maggiemoheb.bugs;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -25,6 +38,19 @@ public class ViewPost extends ListActivity {
     TextView postTitle;
     TextView postText;
     Button shareButton;
+    String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
+    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
+    String name;
+    int profile = R.mipmap.bug;
+    RecyclerView mRecyclerView;
+    RecyclerView.Adapter mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
+    DrawerLayout Drawer;
+    ActionBarDrawerToggle mDrawerToggle;
+    EditText commentText;
+    Button commentButton;
+    ImageView imageCommenter;
+    RoundImage roundedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +69,23 @@ public class ViewPost extends ListActivity {
             }
         });
         Post dummyPost = new Post(1, "Hello this is a new post for trial", "Hello this is a new post for trying again", "", 1, 1);
-
         postWriter.setText("Maggie");
         postTitle.setText(dummyPost.getTitle());
         postText.setText(dummyPost.getText());
+        commentText = (EditText)findViewById(R.id.comment_text);
+        commentButton = (Button) findViewById(R.id.comment_button);
+        commentButton.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                commentText.setText("");
+            }
+        });
+        imageCommenter = (ImageView) findViewById(R.id.imageCommenter);
+        //imageCommenter.setImageResource(R.drawable.profilepic);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
+        roundedImage = new RoundImage(bm);
+        imageCommenter.setImageDrawable(roundedImage);
         ArrayList<String> commentImages = new ArrayList<>();
         ArrayList<String> commentTexts = new ArrayList<>();
         ArrayList<String>commentWriters = new ArrayList<>();
@@ -65,6 +104,74 @@ public class ViewPost extends ListActivity {
         }
         CustomCommentListAdapter adapter = new CustomCommentListAdapter(this, commentImages, commentTexts, commentWriters);
         setListAdapter(adapter);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        final SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        name = (mSharedPreference.getString("Name", ""));
+        mAdapter = new SlideBarAdapter(titles, icons, name, profile, this);
+        mRecyclerView.setAdapter(mAdapter);
+        final GestureDetector mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+
+        });
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+                View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+                    Drawer.closeDrawers();
+                    switch (recyclerView.getChildPosition(child)) {
+                        case 1:
+                            startActivity(new Intent(getApplicationContext(), Profile.class));
+                            break;
+                        case 2:
+                            startActivity(new Intent(getApplicationContext(), NewsFeed.class));
+                            break;
+                        case 3:
+                            startActivity(new Intent(getApplicationContext(), FollowersFolloweesActivity.class));
+                            break;
+                        case 4:
+                            startActivity(new Intent(getApplicationContext(),Notifications.class));
+                            break;
+                        case 5:
+                            startActivity(new Intent(getApplicationContext(),Settings.class));
+                            break;
+                        case 6:
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            break;
+                    }
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+            }
+        });
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, Drawer, R.string.openDrawer, R.string.closeDrawer) {
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        Drawer.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
     }
 
 
