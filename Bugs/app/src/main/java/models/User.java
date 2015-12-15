@@ -7,6 +7,7 @@ import java.sql.Date;
  * Created by maggiemoheb on 11/30/15.
  */
 public class User {
+
     int id;
     String f_name;
     String l_name;
@@ -15,21 +16,58 @@ public class User {
     String city;
     String country;
     Date date_of_birth;
-    boolean gender;
+    String gender;
     String profile_picture;
     String facebook_access_token;
     String access_token;
 
-    public User() {
+
+
+    public String getCity() {
+        return city;
     }
 
-    public User(String photo, String email, String password, String l_name, String f_name, int user_ID) {
+    public void setCity(String city) {
+        this.city = city;
+    }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+
+    public Date getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(Date date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public User(int user_ID, String f_name, String l_name, String password, String email, String photo, String city, String country, String gender, Date date_of_birth) {
+        this.f_name = f_name;
+        this.l_name = l_name;
+        this.password = password;
+        this.email = email;
+        this.city = city;
+        this.country = country;
+        this.gender = gender;
+        this.date_of_birth = date_of_birth;
         this.profile_picture = photo;
         this.email = email;
         this.password = password;
-        l_name = l_name;
-        f_name = f_name;
         this.id = user_ID;
     }
 
@@ -38,11 +76,11 @@ public class User {
     }
 
     public void setF_name(String f_name) {
-        f_name = f_name;
+        this.f_name = f_name;
     }
 
     public void setL_name(String l_name) {
-       l_name = l_name;
+        this.l_name = l_name;
     }
 
     public void setPassword(String password) {

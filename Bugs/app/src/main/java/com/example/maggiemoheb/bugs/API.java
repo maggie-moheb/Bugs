@@ -24,6 +24,8 @@ public interface API {
     @DELETE("/session/{token}")
     void logout(@Path("token") String access_token, Callback<Session> callback);
 
+    @GET("/users/{userID}/followers/{id}")
+    void getFollower(@Path("userID") String userID, @Path("id") String followerID, Callback<User> callback);
 
     @GET("/users/{user_id}/followers")
     void followers(@Path("user_id") int id, Callback<List<Follower>> callback);

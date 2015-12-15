@@ -62,8 +62,6 @@ public class followers extends ListActivity {
        // logo.setImageResource(R.mipmap.bug);
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
-
-       // followers.add(new User("1","maggie@gmail.com","","","maggie",0));
         final RestAdapter adapter = new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
         API api = adapter.create(API.class);
         followersIds = new ArrayList<Integer>();

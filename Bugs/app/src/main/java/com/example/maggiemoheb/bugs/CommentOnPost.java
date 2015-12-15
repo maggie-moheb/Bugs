@@ -14,27 +14,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ListView;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import models.User;
 
 
-public class followees extends ListActivity {
-    private int[] photos = new int[]{R.drawable.m};
-    private ArrayList<String> userNames;
-    private ArrayList<Integer> iconFollowers;
-    private ArrayList<User> followers;
-    private CustomListAdapter adapter2;
-    private CallbackManager callbackManager;
-
-    String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
-    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
+public class CommentOnPost extends ListActivity{
+    private ArrayList<String> postImages;
+    private ArrayList<String> postTexts;
+    private ArrayList<String> postWriters;
+    ImageView profilePic;
+    ImageView logo;
+    String titles[] = {"Profile", "NewsFeed", "Friends", "Settings", "Logout"};
+    int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees, R.mipmap.settings, R.mipmap.logout};
     String name;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
@@ -45,25 +37,28 @@ public class followees extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_followees);
-        followers = new ArrayList<User>();
-        callbackManager = CallbackManager.Factory.create();
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_comment_on_post);
+        profilePic = (ImageView)findViewById(R.id.profilePic);
+        logo = (ImageView)findViewById(R.id.logo);
+        logo.setImageResource(R.mipmap.bug);
+        postImages = new ArrayList();
+        postTexts = new ArrayList();
+        postWriters = new ArrayList();
+        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
+        postTexts.add("Nice article");
+        postWriters.add("rana");
 
-//        followers.add(new User("1","maggie@gmail.com","","","maggie",0));
-//        followers.add(new User("2", "youmnasalah@gmail.com", "", "", "youmna", 1));
-        userNames = new ArrayList<String>();
-        Iterator<User> iterator = followers.iterator();
-        iconFollowers = new ArrayList<Integer>();
-        int i = followers.size() - 1;
-        while (i >= 0 & iterator.hasNext()) {
-        userNames.add(iterator.next().getF_name());
-        iconFollowers.add(photos[0]);
-            i--;
-        }
-        adapter2 = new CustomListAdapter(followees.this, userNames, iconFollowers);
-        setListAdapter(adapter2);
-        registerForContextMenu(getListView());
+        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
+        postTexts.add("Thanks so much,that was so helpful");
+        postWriters.add("Maggie Moheb");
+
+        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
+        postTexts.add("I cannot believe apple macintosh has completed 30 years, I was born before it by about 50 years, and now everybody is just using the computer");
+        postWriters.add("Ayoub");
+
+        CustomCommentListAdapter adapter = new CustomCommentListAdapter(CommentOnPost.this, this.postImages, this.postTexts, this.postWriters);
+        setListAdapter(adapter);
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -97,12 +92,9 @@ public class followees extends ListActivity {
                             startActivity(new Intent(getApplicationContext(), FollowersFolloweesActivity.class));
                             break;
                         case 4:
-                            startActivity(new Intent(getApplicationContext(),Notifications.class));
-                            break;
-                        case 5:
                             startActivity(new Intent(getApplicationContext(),Settings.class));
                             break;
-                        case 6:
+                        case 5:
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             break;
                     }
@@ -134,11 +126,14 @@ public class followees extends ListActivity {
         mDrawerToggle.syncState();
     }
 
+   public void onclick(View view){
+       startActivity(new Intent(getApplicationContext(), CommentOnPost.class));
 
+   }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_followees, menu);
+        getMenuInflater().inflate(R.menu.menu_comment_on_post, menu);
         return true;
     }
 
@@ -155,14 +150,5 @@ public class followees extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(followees.this, FolloweesProfile.class));
-
-    }
-    public void onClick(View view) {
-        startActivity(new Intent(followees.this, FolloweesProfile.class));
-
     }
 }
