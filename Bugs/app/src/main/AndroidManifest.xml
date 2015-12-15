@@ -84,6 +84,10 @@
             android:name=".Notifications"
             android:label="@string/title_activity_notifications" >
         </activity>
+        <activity
+            android:name=".Search"
+            android:label="@string/title_activity_search" >
+        </activity>
     </application>
 
 </manifest>

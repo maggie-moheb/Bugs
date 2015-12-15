@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ public class NewsFeed extends ListActivity {
     private ArrayList<String> postWriters;
     ImageView profilePic;
     ImageView logo;
+    Button search;
+
     String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
     int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
@@ -46,6 +49,12 @@ public class NewsFeed extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         profilePic = (ImageView)findViewById(R.id.profilePic);
+        search = (Button) findViewById(R.id.search);
+        search.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(NewsFeed.this, Search.class));
+            }
+        });
        // profilePic.setImageResource(R.drawable.profilepic);
       //  profilePic = (ImageView)findViewById(R.id.profilePicture);
         // mImageView.setImageResource(R.drawable.profilepic);
@@ -185,4 +194,5 @@ public class NewsFeed extends ListActivity {
         super.onListItemClick(l, v, position, id);
         startActivity(new Intent(NewsFeed.this, ViewPost.class));
     }
+
 }
