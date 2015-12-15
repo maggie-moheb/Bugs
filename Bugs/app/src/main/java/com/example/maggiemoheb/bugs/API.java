@@ -1,10 +1,16 @@
 package com.example.maggiemoheb.bugs;
+
+import java.util.List;
+
+import models.Follower;
 import models.Session;
-import retrofit.http.DELETE;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.Field;
-import retrofit.http.POST;
+import models.User;
 import retrofit.Callback;
+import retrofit.http.DELETE;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.Path;
 
 /**
@@ -17,4 +23,11 @@ public interface API {
 
     @DELETE("/session/{token}")
     void logout(@Path("token") String access_token, Callback<Session> callback);
+
+
+    @GET("/users/{user_id}/followers")
+    void followers(@Path("user_id") int id, Callback<List<Follower>> callback);
+
+    @GET("/users/{id}")
+    void getUser(@Path("id") int id, Callback <User> callback);
 }
