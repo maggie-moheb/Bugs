@@ -41,6 +41,8 @@
             android:id="@+id/logo"
             android:layout_gravity="right"/>
 
+
+
     </LinearLayout>
     <ImageView
         android:layout_width="100dp"
