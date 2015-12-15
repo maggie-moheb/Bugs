@@ -7,16 +7,16 @@ public class Post {
     private int id;
     private String title;
     private String text;
-    private String photoDir;
+    private String photo;
     private int user_id;
-    private int user_dest_id;
+    private int user_dest;
     public Post(int id, String title, String text, String photoDir, int user_id, int user_dest_id) {
         this.id = id;
         this.title = title;
         this.text = text;
-        this.photoDir = photoDir;
+        this.photo = photoDir;
         this.user_id = user_id;
-        this.user_dest_id = user_dest_id;
+        this.user_dest = user_dest_id;
     }
     public int getId() {
         return this.id;
@@ -28,13 +28,13 @@ public class Post {
         return this.text;
     }
     public String getPhoto() {
-        return this.photoDir;
+        return this.photo;
     }
     public int getUser_id() {
         return this.user_id;
     }
-    public int getUser_dest_id() {
-        return this.user_dest_id;
+    public int getUser_dest() {
+        return this.user_dest;
     }
 
     public void setId(int id) {
@@ -47,12 +47,12 @@ public class Post {
         this.text = text;
     }
     public void setPhoto(String photoDir) {
-        this.photoDir = photoDir;
+        this.photo = photoDir;
     }
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
-    public void setUser_dest_id(int user_dest_id) {
-        this.user_dest_id = user_dest_id;
+    public void setUser_dest(int user_dest) {
+        this.user_dest = user_dest;
     }
 }

@@ -1,8 +1,8 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
-      t.string :title
-      t.text :text
+      t.string :title ,uniqueness: true
+      t.text :text 
       t.text :photo
       t.references :user
       #t.references :comment   .....................check

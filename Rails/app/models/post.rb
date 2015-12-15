@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
 	validates :user, presence: true 
 	validates :user_dest, presence: true 
 	validates :text, presence:true
-	validates :title, length: { maximum:255 }, allow_blank: true
+	validates :title, length: { maximum:255 }
 	
 	scope :AI_topic, -> { where("topic =?", 1) }
 	scope :HCI_topic, -> { where("topic = ?", 2) }
@@ -15,4 +15,3 @@ class Post < ActiveRecord::Base
 	scope :Others_topic, -> { where("topic > ?", 3) }
 	
 end
-qqq	qqqq	qqq		qqq																								

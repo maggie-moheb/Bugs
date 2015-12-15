@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     resources :users do
       resources :followers do
       end
+      resources :posts do
+        resources :comments do
+        end
+      end
     end
     
   #     member do
@@ -57,7 +61,10 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  get 'v/users/:user_id/posts/:title'=>'posts#getpostID'
+  get 'v/users/:user_id/posts/:post_id/comments/:user_id'=>'comments#getcommenter'
+
   get 'users/:id/followers'=> 'followers#findFollowers'
-  resources :users
+  get 'users/:id/followees'=> 'followers#findFollowees'
  # get 'users'=> 'users#index'
 end
