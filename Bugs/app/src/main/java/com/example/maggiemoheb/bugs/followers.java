@@ -84,6 +84,7 @@ public class followers extends ListActivity {
                         @Override
                         public void success(User user, Response response) {
                             userNames.add(user.getF_name() + " "+ user.getL_name());
+                            Log.i("follower", user.getF_name() + " "+ user.getL_name());
                         }
 
                         @Override
