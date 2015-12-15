@@ -94,9 +94,11 @@ public class followers extends ListActivity {
                         }
                     });
                 }
+
                 iconFollowers = new ArrayList<Integer>();
                 int i = followersIds.size() - 1;
                 iconFollowers.add(photos[0]);
+
                 adapter2 = new CustomListAdapter(followers.this, userNames, iconFollowers);
                 setListAdapter(adapter2);
             }

@@ -9,7 +9,9 @@ before_action :set_user, only: [:show, :update, :destroy]
 
   def show
     @user = User.find(params[:id])
+
     render json: @user, status: :ok
+
   end
 
   def create
