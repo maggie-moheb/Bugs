@@ -1,7 +1,7 @@
 class FollowersController < ApplicationController
     def findFollowers
-    	@user = User.find(params[:user_id])
+    	@user = User.find(params[:id])
     	@followers = @user.followers.all
-    	render json: @followers if stale?(@followers)
+    	render json: @followers,  status: :ok
     end
 end

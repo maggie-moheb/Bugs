@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  get 'users/:user_id/followers'=> 'followers#findFollowers'
+  get 'users/:id/followers'=> 'followers#findFollowers'
   resources :users
  # get 'users'=> 'users#index'
 end
