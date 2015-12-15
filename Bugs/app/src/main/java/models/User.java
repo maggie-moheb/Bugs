@@ -1,39 +1,48 @@
 package models;
 
+
+import java.sql.Date;
+
 /**
  * Created by maggiemoheb on 11/30/15.
  */
 public class User {
-    int user_ID;
-    String F_name;
-    String L_name;
+    int id;
+    String f_name;
+    String l_name;
     String password;
     String email;
-    String photo;
+    String city;
+    String country;
+    Date date_of_birth;
+    boolean gender;
+    String profile_picture;
+    String facebook_access_token;
+    String access_token;
 
     public User() {
     }
 
     public User(String photo, String email, String password, String l_name, String f_name, int user_ID) {
 
-        this.photo = photo;
+        this.profile_picture = photo;
         this.email = email;
         this.password = password;
-        L_name = l_name;
-        F_name = f_name;
-        this.user_ID = user_ID;
+        l_name = l_name;
+        f_name = f_name;
+        this.id = user_ID;
     }
 
     public void setUser_ID(int user_ID) {
-        this.user_ID = user_ID;
+        this.id = user_ID;
     }
 
     public void setF_name(String f_name) {
-        F_name = f_name;
+        f_name = f_name;
     }
 
     public void setL_name(String l_name) {
-        L_name = l_name;
+       l_name = l_name;
     }
 
     public void setPassword(String password) {
@@ -45,20 +54,20 @@ public class User {
     }
 
     public void setPhoto(String photo) {
-        this.photo = photo;
+        this.profile_picture = photo;
     }
 
     public int getUser_ID() {
 
-        return user_ID;
+        return id;
     }
 
     public String getF_name() {
-        return F_name;
+        return f_name;
     }
 
     public String getL_name() {
-        return L_name;
+        return l_name;
     }
 
     public String getPassword() {
@@ -70,6 +79,6 @@ public class User {
     }
 
     public String getPhoto() {
-        return photo;
+        return profile_picture;
     }
 }
