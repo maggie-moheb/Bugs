@@ -31,6 +31,9 @@ public interface API {
     @GET("/users/{user_id}/followers")
     void followers(@Path("user_id") int id, Callback<List<Follower>> callback);
 
+    @GET("/users/{user_id}/followees")
+    void followees(@Path("user_id") int id, Callback<List<Follower>> callback);
+
     @GET("/users/{id}")
     void getUser(@Path("id") int id, Callback <User> callback);
 
