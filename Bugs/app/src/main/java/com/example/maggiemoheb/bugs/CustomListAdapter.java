@@ -65,7 +65,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imagefollower);
         Log.i("item name size", itemName.size()+"");
         txtTitle.setText(itemName.get(position));
-        imageView.setImageResource(imgId.get(position));
+//        imageView.setImageResource(imgId.get(position));
         return rowView;
     }
 

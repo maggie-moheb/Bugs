@@ -76,6 +76,8 @@ public class followees extends ListActivity {
                         @Override
                         public void success(User user, Response response) {
                             userNames.add(user.getF_name() + " "+ user.getL_name());
+                            adapter2 = new CustomListAdapter(followees.this, userNames, iconFollowers);
+                            setListAdapter(adapter2);
                         }
 
                         @Override
@@ -94,8 +96,8 @@ public class followees extends ListActivity {
             }
         });
 
-        adapter2 = new CustomListAdapter(followees.this, userNames, iconFollowers);
-        setListAdapter(adapter2);
+
+
         registerForContextMenu(getListView());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);

@@ -85,6 +85,8 @@ public class followers extends ListActivity {
                         public void success(User user, Response response) {
                             userNames.add(user.getF_name() + " "+ user.getL_name());
                             Log.i("follower", user.getF_name() + " "+ user.getL_name());
+                            adapter2 = new CustomListAdapter(followers.this, userNames, iconFollowers);
+                            setListAdapter(adapter2);
                         }
 
                         @Override
@@ -95,12 +97,11 @@ public class followers extends ListActivity {
                     });
                 }
 
-                iconFollowers = new ArrayList<Integer>();
-                int i = followersIds.size() - 1;
-                iconFollowers.add(photos[0]);
+//                iconFollowers = new ArrayList<Integer>();
+//                int i = followersIds.size() - 1;
+//                iconFollowers.add(photos[0]);
 
-                adapter2 = new CustomListAdapter(followers.this, userNames, iconFollowers);
-                setListAdapter(adapter2);
+
             }
 
             @Override
