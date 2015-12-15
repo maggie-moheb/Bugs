@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Hello Ayoub!"
+            android:text="Hello"
             android:textSize="30dp"
             android:id="@+id/welcomeText"
             android:paddingRight="20dp"

@@ -5,7 +5,14 @@ class FollowersController < ApplicationController
       @followers = @user.followers.all
       render json: @followers,  status: :ok
     end
-    
+
+#Returns followees for a specific user with given name. 
+    def findFollowees
+      @user = User.find(params[:id])
+      @followees = @user.followees.all
+      render json: @followees,  status: :ok
+    end 
+       
   #Returns list of followers for a specific user. 
   # GET /followers
   # GET /followers.json

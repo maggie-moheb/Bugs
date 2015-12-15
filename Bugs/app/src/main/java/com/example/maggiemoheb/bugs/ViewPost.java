@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareContent;
@@ -28,16 +29,24 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import models.Comment;
-import models.Post;
+import models.User;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class ViewPost extends ListActivity {
     TextView postWriter;
     TextView postTitle;
     TextView postText;
+    ImageView postImage;
     Button shareButton;
+    int post_id;
+    int User_id;
     String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
     int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
@@ -51,12 +60,39 @@ public class ViewPost extends ListActivity {
     Button commentButton;
     ImageView imageCommenter;
     RoundImage roundedImage;
+    RestAdapter adapter ;
+    SharedPreferences mSharedPreference;
+    SharedPreferences.Editor editor;
+    ArrayList<String> commentImages;
+    ArrayList<String> commentTexts;
+    ArrayList<String>commentWriters;
+    API api ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_post);
+        mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        editor = mSharedPreference.edit();
+        postTitle = (TextView)findViewById(R.id.postTitle);
+        postText = (TextView)findViewById(R.id.postText);
+        postWriter =(TextView)findViewById(R.id.postWriter);
+        postImage = (ImageView)findViewById(R.id.postImage);
+        User_id  = mSharedPreference.getInt("User_ID",1);
+        postTitle.setText(mSharedPreference.getString("postName", " "));
+        postText.setText(mSharedPreference.getString("postText", " "));
+        postWriter.setText(mSharedPreference.getString("userName"," "));
+//        InputStream is = null;
+//        try {
+//            is = (InputStream) new URL(mSharedPreference.getString("postImage","")).getContent();
+//            Drawable d = Drawable.createFromStream(is, "srcName");
+//            postImage.setImageDrawable(d);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         postWriter = (TextView) findViewById(R.id.postWriter);
         postTitle = (TextView) findViewById(R.id.postTitle);
         postText = (TextView) findViewById(R.id.postText);
@@ -68,42 +104,28 @@ public class ViewPost extends ListActivity {
                 FBshare(view);
             }
         });
-        Post dummyPost = new Post(1, "Hello this is a new post for trial", "Hello this is a new post for trying again", "", 1, 1);
-        postWriter.setText("Maggie");
-        postTitle.setText(dummyPost.getTitle());
-        postText.setText(dummyPost.getText());
+
+        adapter = new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
         commentText = (EditText)findViewById(R.id.comment_text);
         commentButton = (Button) findViewById(R.id.comment_button);
         commentButton.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                commentText.setText("");
+                comment();
             }
         });
         imageCommenter = (ImageView) findViewById(R.id.imageCommenter);
+        api = adapter.create(API.class);
         //imageCommenter.setImageResource(R.drawable.profilepic);
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
         roundedImage = new RoundImage(bm);
         imageCommenter.setImageDrawable(roundedImage);
-        ArrayList<String> commentImages = new ArrayList<>();
-        ArrayList<String> commentTexts = new ArrayList<>();
-        ArrayList<String>commentWriters = new ArrayList<>();
+        commentImages = new ArrayList<String>();
+        commentTexts = new ArrayList<String>();
+        commentWriters = new ArrayList<String>();
 
-        ArrayList<Comment>comments = new ArrayList<>();
-        Comment dummyComment1 = new Comment(1, "Woowww this post is amazing", 3);
-        commentWriters.add("Maggie");
-        commentImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        comments.add(dummyComment1);
-        Comment dummyComment2 = new Comment(3, "This post has changed my life", 5);
-        commentWriters.add("Youmna");
-        comments.add(dummyComment2);
-        commentImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        for(int i = 0;i<comments.size(); i++) {
-            commentTexts.add(comments.get(i).getText());
-        }
-        CustomCommentListAdapter adapter = new CustomCommentListAdapter(this, commentImages, commentTexts, commentWriters);
-        setListAdapter(adapter);
+        fillcommentList();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -204,6 +226,56 @@ public class ViewPost extends ListActivity {
                 .build();
         ShareDialog s = new ShareDialog(this);
         s.show(linkContent);
+    }
+
+    public void fillcommentList(){
+        post_id = mSharedPreference.getInt("postNumber",1);
+        api.getComment(User_id,post_id,new Callback<List<Comment>>() {
+            @Override
+            public void success(List<Comment> commentsList, Response response) {
+                for(int i = 0;i<commentsList.size();i++){
+                   Comment current = commentsList.get(i);
+                    commentTexts.add(i,current.getText());
+                    final int x = i;
+                    api.getCommenterName(User_id,post_id,current.getUser_id(),new Callback<List<User>>() {
+                        @Override
+                        public void success(List<User> users, Response response) {
+                            commentWriters.add(x, users.get(0).getF_name() + "  " + users.get(0).getL_name());
+                            commentImages.add(x, users.get(0).getPhoto());
+
+                            CustomCommentListAdapter adapter = new CustomCommentListAdapter(ViewPost.this, commentImages, commentTexts, commentWriters);
+                            setListAdapter(adapter);
+                        }
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+    public void comment(){
+        api.postComment(commentText.getText().toString(),User_id+"",post_id+"",User_id+"",post_id+"",new Callback<Comment>() {
+            @Override
+            public void success(Comment comment, Response response) {
+                Toast.makeText(getApplicationContext(),"Comment delivered :D", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(ViewPost.this, ViewPost.class));
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
 }

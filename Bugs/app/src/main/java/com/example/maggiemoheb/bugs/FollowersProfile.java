@@ -170,7 +170,7 @@ public class FollowersProfile extends ActionBarActivity {
                 displayLocation.setText(u.getCountry()+" , "+u.getCity());
                 displayEmail.setText(u.getEmail());
                 gender.setText(u.getGender());
-                displayBirth.setText(u.getDate_of_birth().toString());
+                displayBirth.setText(u.getDate_of_birth()+" ");
                 mImageView.setImageResource(R.drawable.m);
             }
 

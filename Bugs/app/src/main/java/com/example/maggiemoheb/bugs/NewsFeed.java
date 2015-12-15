@@ -18,9 +18,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import models.Follower;
+import models.Post;
+import models.User;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class NewsFeed extends ListActivity {
@@ -30,11 +39,15 @@ public class NewsFeed extends ListActivity {
     private ArrayList<String> postWriters;
     ImageView profilePic;
     ImageView logo;
+    SharedPreferences mSharedPreference;
+    API api;
+    int user_ID;
     String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
     int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
+    TextView welcome;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
@@ -46,11 +59,12 @@ public class NewsFeed extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         profilePic = (ImageView)findViewById(R.id.profilePic);
-       // profilePic.setImageResource(R.drawable.profilepic);
-      //  profilePic = (ImageView)findViewById(R.id.profilePicture);
-        // mImageView.setImageResource(R.drawable.profilepic);
+        final SharedPreferences SHARED_PREFERENCE =
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        welcome = (TextView)findViewById(R.id.welcomeText);
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
         roundedImage = new RoundImage(bm);
+        user_ID = (SHARED_PREFERENCE.getInt("userID", 1));
         profilePic.setImageDrawable(roundedImage);
         profilePic.setOnClickListener(new View.OnClickListener() {
 
@@ -62,36 +76,12 @@ public class NewsFeed extends ListActivity {
         });
         logo = (ImageView)findViewById(R.id.logo);
         logo.setImageResource(R.mipmap.bug);
-
-
-        postTitles = new ArrayList<>();
-        postImages = new ArrayList<>();
-        postTexts = new ArrayList<>();
-        postWriters = new ArrayList<>();
-        postTitles.add("Apple Macintosh has completed 30 years");
-        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        postTexts.add("I cannot believe apple macintosh has completed 30 years, I was born before it by about 50 years, and now everybody is just using the computer");
-        postWriters.add("Ayoub");
-        postTitles.add("Mark Zuckerberg has finally bought whatsapp");
-        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        postTexts.add("I cannot believe apple macintosh has completed 30 years, I was born before it by about 50 years, and now everybody is just using the computer");
-        postWriters.add("Maggie Moheb");
-        postTitles.add("Apple Macintosh has completed 30 years");
-        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        postTexts.add("I cannot believe apple macintosh has completed 30 years, I was born before it by about 50 years, and now everybody is just using the computer");
-        postWriters.add("Ayoub");
-        postTitles.add("Mark Zuckerberg has finally bought whatsapp");
-        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        postTexts.add("I cannot believe apple macintosh has completed 30 years, I was born before it by about 50 years, and now everybody is just using the computer");
-        postWriters.add("Maggie Moheb");
-        CustomPostListAdapter adapter = new CustomPostListAdapter(NewsFeed.this, this.postTitles, this.postImages, this.postTexts, this.postWriters);
-        setListAdapter(adapter);
-
-
+        fillFeed();
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
         final SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         name = (mSharedPreference.getString("Name", ""));
+        welcome.setText("Hello "+mSharedPreference.getString("userName"," ")+" !");
         mAdapter = new SlideBarAdapter(titles, icons, name, profile, this);
         mRecyclerView.setAdapter(mAdapter);
         final GestureDetector mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
@@ -181,8 +171,82 @@ public class NewsFeed extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Toast.makeText(getApplicationContext(), "item clicked!", Toast.LENGTH_LONG).show();
         super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(NewsFeed.this, ViewPost.class));
+        final String title  = postTitles.get(position);
+         api.getPost(user_ID,title,new Callback<List<Post>>() {
+             @Override
+             public void success(List<Post> posts, Response response) {
+                  mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                 SharedPreferences.Editor editor = mSharedPreference.edit();
+                 editor.putInt("postNumber", posts.get(0).getId());
+                 editor.putString("postName", posts.get(0).getTitle());
+                 editor.putString("postText",posts.get(0).getText());
+                 editor.putString("postImage",posts.get(0).getPhoto());
+                 editor.apply();
+                 editor.commit();
+
+
+             }
+
+             @Override
+             public void failure(RetrofitError error) {
+
+             }
+         });
+
+    }
+    public void fillFeed(){
+        postTitles = new ArrayList<String>();
+        postImages = new ArrayList<String>();
+        postTexts = new ArrayList<String>();
+        postWriters = new ArrayList<String>();
+        final RestAdapter ADAPTER = new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
+        api = ADAPTER.create(API.class);
+        api.getFollowees(user_ID+"",new Callback<List<Follower>>() {
+            @Override
+            public void success(final List<Follower> users, Response response) {
+                for(int i = 0; i<users.size(); i++) {
+                    final int x = i;
+                    api.getUser(users.get(i).getFollowee_id(),new Callback<User>() {
+                        @Override
+                        public void success(final User user, Response response) {
+                            api.getposts(user.getUser_ID()+" ",new Callback<List<Post>>() {
+                                @Override
+                                public void success(List<Post> posts, Response response) {
+                                    for(int k = 0;k < posts.size(); k++){
+                                        Post current = posts.get(k);
+                                        postWriters.add(k, user.getF_name() + " " + user.getL_name());
+                                        postTexts.add(k,current.getText());
+                                        postTitles.add(k,current.getTitle());
+                                        postImages.add(k,current.getPhoto());
+
+                                    }
+                                    CustomPostListAdapter adapter = new CustomPostListAdapter(NewsFeed.this,postTitles, postImages, postTexts, postWriters);
+                                    setListAdapter(adapter);
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+
     }
 }
