@@ -89,11 +89,16 @@ public class followers extends ListActivity {
 
                         @Override
                         public void failure(RetrofitError error) {
-                            Toast.makeText(getApplicationContext(), "error in getting followers names", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "error in getting followees names", Toast.LENGTH_LONG).show();
 
                         }
                     });
                 }
+                iconFollowers = new ArrayList<Integer>();
+                int i = followersIds.size() - 1;
+                iconFollowers.add(photos[0]);
+                adapter2 = new CustomListAdapter(followers.this, userNames, iconFollowers);
+                setListAdapter(adapter2);
             }
 
             @Override
@@ -103,15 +108,7 @@ public class followers extends ListActivity {
         });
 
    //     Iterator<User> iterator = followers.iterator();
-        iconFollowers = new ArrayList<Integer>();
-        int i = followersIds.size() - 1;
-//        while (i >= 0 & iterator.hasNext()) {
-    //    userNames.add(iterator.next().getF_name());
-        iconFollowers.add(photos[0]);
-//            i--;
-//        }
-        adapter2 = new CustomListAdapter(followers.this, userNames, iconFollowers);
-        setListAdapter(adapter2);
+
         registerForContextMenu(getListView());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
