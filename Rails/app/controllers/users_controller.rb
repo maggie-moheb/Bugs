@@ -8,7 +8,10 @@ before_action :set_user, only: [:show, :update, :destroy]
   end
 
   def show
-    render json: @user if stale?(@user)
+    @user = User.find(params[:id])
+
+    render json: @user, status: :ok
+
   end
 
   def create

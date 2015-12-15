@@ -9,27 +9,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import models.Follower;
 import models.User;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class followees extends ListActivity {
     private int[] photos = new int[]{R.drawable.m};
     private ArrayList<String> userNames;
     private ArrayList<Integer> iconFollowers;
-    private ArrayList<User> followers;
     private CustomListAdapter adapter2;
     private CallbackManager callbackManager;
 
@@ -46,23 +53,51 @@ public class followees extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followees);
-        followers = new ArrayList<User>();
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-//        followers.add(new User("1","maggie@gmail.com","","","maggie",0));
-//        followers.add(new User("2", "youmnasalah@gmail.com", "", "", "youmna", 1));
-        userNames = new ArrayList<String>();
-        Iterator<User> iterator = followers.iterator();
-        iconFollowers = new ArrayList<Integer>();
-        int i = followers.size() - 1;
-        while (i >= 0 & iterator.hasNext()) {
-        userNames.add(iterator.next().getF_name());
-        iconFollowers.add(photos[0]);
-            i--;
-        }
-        adapter2 = new CustomListAdapter(followees.this, userNames, iconFollowers);
-        setListAdapter(adapter2);
+        final RestAdapter adapter = new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
+        API api = adapter.create(API.class);
+        final ArrayList<Integer> followeesIds = new ArrayList();
+        userNames = new ArrayList<>();
+        api.followees(1, new Callback<List<Follower>>() {
+            @Override
+            public void success(List<Follower> followers, Response response) {
+                Iterator<Follower> followersNames = followers.iterator();
+                while(followersNames.hasNext()) {
+                    Follower temp = followersNames.next();
+                    followeesIds.add(temp.getFollowee_id());
+                }
+
+                API api = adapter.create(API.class);
+                Log.i("followers.size", followeesIds.size() + "");
+                for(int i = 0; i<followeesIds.size(); i++) {
+                    api.getUser(followeesIds.get(i), new Callback<User>() {
+                        @Override
+                        public void success(User user, Response response) {
+                            userNames.add(user.getF_name() + " "+ user.getL_name());
+                            adapter2 = new CustomListAdapter(followees.this, userNames, iconFollowers);
+                            setListAdapter(adapter2);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Toast.makeText(getApplicationContext(), "error in getting followers names", Toast.LENGTH_LONG).show();
+
+                        }
+                     });
+                 }
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+
+
         registerForContextMenu(getListView());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);

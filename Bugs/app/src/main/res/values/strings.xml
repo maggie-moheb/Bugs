@@ -27,5 +27,6 @@
     <string name="title_activity_view_post">ViewPost</string>
     <string name="title_activity_notifications">Notifications</string>
     <string name="ENDPOINT">http://10.0.2.2:3000</string>
+    <string name="title_activity_search">Search</string>
 
 </resources>

@@ -6,6 +6,7 @@ import models.Comment;
 import models.Follower;
 import models.Post;
 import models.Session;
+import models.Setting;
 import models.User;
 import retrofit.Callback;
 import retrofit.http.DELETE;
@@ -52,7 +53,15 @@ public interface API {
 
     @GET("/v/users/{user_id}/posts/{post_id}/comments/{commenter_id}")
     void getCommenterName(@Path("user_id") int id,@Path("post_id") int post_id,@Path("commenter_id") int commenter_id, Callback<List<User>> callback);
+    @GET("/users/{user_id}/followees")
+    void followees(@Path("user_id") int id, Callback<List<Follower>> callback);
 
     @GET("/users/{id}")
     void getUser(@Path("id") int id, Callback <User> callback);
+
+    @GET("/users/{id}/settings")
+    void getUserSettings(@Path("id") int id, Callback<Setting> callback);
+
+    @GET("/users")
+    void getUsers(Callback<List<User>> callback);
 }

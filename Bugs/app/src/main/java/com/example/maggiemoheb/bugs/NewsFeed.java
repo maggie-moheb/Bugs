@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class NewsFeed extends ListActivity {
     SharedPreferences mSharedPreference;
     API api;
     int user_ID;
+    Button search;
     String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
     int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
@@ -59,12 +61,19 @@ public class NewsFeed extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         profilePic = (ImageView)findViewById(R.id.profilePic);
-        final SharedPreferences SHARED_PREFERENCE =
-                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         welcome = (TextView)findViewById(R.id.welcomeText);
+        search = (Button) findViewById(R.id.search);
+        search.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(NewsFeed.this, Search.class));
+            }
+        });
+       // profilePic.setImageResource(R.drawable.profilepic);
+      //  profilePic = (ImageView)findViewById(R.id.profilePicture);
+        // mImageView.setImageResource(R.drawable.profilepic);
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
         roundedImage = new RoundImage(bm);
-        user_ID = (SHARED_PREFERENCE.getInt("userID", 1));
+        user_ID = (mSharedPreference.getInt("userID", 1));
         profilePic.setImageDrawable(roundedImage);
         profilePic.setOnClickListener(new View.OnClickListener() {
 
@@ -249,4 +258,5 @@ public class NewsFeed extends ListActivity {
 
 
     }
+
 }
