@@ -36,4 +36,7 @@ public interface API {
 
     @GET("/users/{id}/settings")
     void getUserSettings(@Path("id") int id, Callback<Setting> callback);
+
+    @GET("/users")
+    void getUsers(Callback<List<User>> callback);
 }

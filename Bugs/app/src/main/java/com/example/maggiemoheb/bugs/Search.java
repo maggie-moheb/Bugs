@@ -1,13 +1,24 @@
 package com.example.maggiemoheb.bugs;
 
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class Search extends ActionBarActivity {
+import models.User;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+
+public class Search extends ListActivity {
     EditText searchBar;
 
     @Override
@@ -15,6 +26,28 @@ public class Search extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         searchBar = (EditText) findViewById(R.id.search_bar);
+        final RestAdapter adapter = new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
+        API api = adapter.create(API.class);
+        final ArrayList<String> usersNames = new ArrayList<>();
+        api.getUsers(new Callback<List<User>>() {
+            @Override
+            public void success(List<User> users, Response response) {
+                Iterator<User> usersObjects = users.iterator();
+                while(usersObjects.hasNext()) {
+                    User temp = usersObjects.next();
+                    usersNames.add(temp.getF_name()+" "+temp.getL_name());
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+        Log.i("size of users:", usersNames.size()+"");
+        CustomListAdapter adapter2 = new CustomListAdapter(Search.this, usersNames, new ArrayList<Integer>());
+        setListAdapter(adapter2);
+
     }
 
 

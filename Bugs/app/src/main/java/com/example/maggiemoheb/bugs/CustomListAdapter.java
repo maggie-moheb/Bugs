@@ -20,6 +20,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private Activity context;
     private ArrayList<String> itemName;
     private ArrayList<Integer> imgId;
+
     public ArrayList<String> getItemName() {
         return itemName;
     }
