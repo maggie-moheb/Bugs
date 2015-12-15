@@ -54,6 +54,8 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   get 'users/:id/followers'=> 'followers#findFollowers'
-  resources :users
+  resources :users do
+    resources :settings
+  end
  # get 'users'=> 'users#index'
 end

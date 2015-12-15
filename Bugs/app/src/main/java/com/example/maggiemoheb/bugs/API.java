@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.Follower;
 import models.Session;
+import models.Setting;
 import models.User;
 import retrofit.Callback;
 import retrofit.http.DELETE;
@@ -30,4 +31,7 @@ public interface API {
 
     @GET("/users/{id}")
     void getUser(@Path("id") int id, Callback <User> callback);
+
+    @GET("/users/{id}/settings")
+    void getUserSettings(@Path("id") int id, Callback<Setting> callback);
 }

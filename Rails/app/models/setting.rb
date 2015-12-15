@@ -9,9 +9,9 @@ class Setting < ActiveRecord::Base
     
   after_initialize :default_values
   def default_values
-    self.notify_followers ||= true
-    self.notify_comments ||= true
-    self.notify_post ||= true
-    self.followers_can_post ||= true
+    self.notify_followers &&= true
+    self.notify_comments &&= true
+    self.notify_post &&= true
+    self.followers_can_post &&= true
   end
 end
