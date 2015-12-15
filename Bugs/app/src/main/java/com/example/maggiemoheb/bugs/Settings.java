@@ -2,18 +2,27 @@ package com.example.maggiemoheb.bugs;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Switch;
+import android.widget.Toast;
+
+import models.Setting;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class Settings extends ActionBarActivity {
@@ -25,6 +34,10 @@ public class Settings extends ActionBarActivity {
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
+    Switch allowPost;
+    Switch notifyComments;
+    Switch notifyPost;
+    Switch notifyFollow;
     ActionBarDrawerToggle mDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +47,43 @@ public class Settings extends ActionBarActivity {
         mRecyclerView.setHasFixedSize(true);
         final SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         name = (mSharedPreference.getString("Name", ""));
+        allowPost = (Switch) findViewById(R.id.allow_post);
+        notifyComments = (Switch) findViewById(R.id.notify_comments);
+        notifyPost = (Switch) findViewById(R.id.notify_posts);
+        notifyFollow = (Switch) findViewById(R.id.notify_follow);
+        final RestAdapter adapter = new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
+        API api = adapter.create(API.class);
+        api.getUserSettings(1, new Callback<Setting>() {
+            @Override
+            public void success(Setting setting, Response response) {
+                Log.i("setting allow", setting.isFollowers_can_post()+"");
+                if(setting.isFollowers_can_post()) {
+                    allowPost.setChecked(true);
+                }else {
+                    allowPost.setChecked(false);
+                }
+                if(setting.isNotify_comments()) {
+                    notifyComments.setChecked(true);
+                }else{
+                    notifyComments.setChecked(false);
+                }
+                if(setting.isNotify_followers()) {
+                    notifyFollow.setChecked(true);
+                }else{
+                    notifyFollow.setChecked(false);
+                }
+                if(setting.isNotify_post()) {
+                    notifyPost.setChecked(true);
+                }else{
+                    notifyPost.setChecked(false);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getApplicationContext(), "Error in retrieving you settings!", Toast.LENGTH_LONG).show();
+            }
+        });
         mAdapter = new SlideBarAdapter(titles, icons, name, profile, this);
         mRecyclerView.setAdapter(mAdapter);
         final GestureDetector mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
