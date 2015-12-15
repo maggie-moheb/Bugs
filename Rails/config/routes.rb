@@ -15,9 +15,10 @@ Rails.application.routes.draw do
   #   resources :products
 
   # Example resource route with options:
+    get 'users/:id/followers'=> 'followers#findFollowers'
     resources :users do
-      resources :followers do
-      end
+      resources :followers 
+      resources :settings
     end
     
   #     member do
@@ -57,9 +58,7 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  get 'users/:id/followers'=> 'followers#findFollowers'
-  resources :users do
-    resources :settings
-  end
+  
+ 
  # get 'users'=> 'users#index'
 end
