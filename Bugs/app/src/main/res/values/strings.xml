@@ -19,6 +19,7 @@
     <string name="lastName">Last Name</string>
     <string name="title_activity_news_feed">NewsFeed</string>
     <string name="title_activity_followers">followers</string>
+<<<<<<< HEAD
     <string name="title_activity_followers_followees">FollowersFolloweesActivity</string>
     <string name="title_activity_followees">followees</string>
     <string name="openDrawer">drawer_open</string>
@@ -26,4 +27,8 @@
     <string name="facebook_app_id">892627414184492</string>
     <string name="title_activity_view_post">ViewPost</string>
     <string name="title_activity_notifications">Notifications</string>
+=======
+    <string name="title_activity_view_notifications">ViewNotifications</string>
+    <string name="title_activity_view_post">ViewPost</string>
+>>>>>>> 4337742f86818495bbf5733bb3b5fc35d3e378e1
 </resources>

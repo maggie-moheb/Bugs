@@ -1,5 +1,6 @@
 package com.example.maggiemoheb.bugs;
 
+<<<<<<< HEAD
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -204,6 +205,54 @@ public class ViewPost extends ListActivity {
                 .build();
         ShareDialog s = new ShareDialog(this);
         s.show(linkContent);
+=======
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+
+public class ViewPost extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_post);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+
+               /*
+                public class ViewPost extends ActionBarActivity {
+
+                    @Override
+                    protected void onCreate(Bundle savedInstanceState) {
+                        super.onCreate(savedInstanceState);
+                        setContentView(R.layout.activity_view_post);
+//        Button btn = (Button)findViewById(R.id.click);
+                        //       TextView text = (TextView)findViewById((R.id.post_text));
+                        //btn.callOnClick();
+                        // text.setText("hello");
+                        // text view
+                        // EditText comment = (EditText)findViewById((R.id.editText3));
+                        //comment.getText();
+
+                    }
+
+                }
+                */
+
+            }
+        });
+>>>>>>> 4337742f86818495bbf5733bb3b5fc35d3e378e1
     }
 
 }
