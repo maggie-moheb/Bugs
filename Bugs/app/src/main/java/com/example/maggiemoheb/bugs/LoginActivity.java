@@ -100,13 +100,7 @@ public class LoginActivity extends ActionBarActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                info.setText(
-                        "User ID: "
-                                + loginResult.getAccessToken().getUserId()
-                                + "\n" +
-                                "Auth Token: "
-                                + loginResult.getAccessToken().getToken()
-                );
+                info.setText("login successfull");
                 startActivity(new Intent(getApplicationContext(), NewsFeed.class));
 
             }
