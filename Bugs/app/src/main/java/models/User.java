@@ -1,27 +1,27 @@
 package models;
 
+
+import java.sql.Date;
+
 /**
  * Created by maggiemoheb on 11/30/15.
  */
 public class User {
-    int user_ID;
+
+    int id;
     String f_name;
     String l_name;
     String password;
     String email;
-    String photo;
     String city;
     String country;
+    Date date_of_birth;
     String gender;
-    boolean can_post;
+    String profile_picture;
+    String facebook_access_token;
+    String access_token;
 
-    public boolean isCan_post() {
-        return can_post;
-    }
 
-    public void setCan_post(boolean can_post) {
-        this.can_post = can_post;
-    }
 
     public String getCity() {
         return city;
@@ -39,13 +39,12 @@ public class User {
         this.country = country;
     }
 
-    String date_of_birth;
 
-    public String getDate_of_birth() {
+    public Date getDate_of_birth() {
         return date_of_birth;
     }
 
-    public void setDate_of_birth(String date_of_birth) {
+    public void setDate_of_birth(Date date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
 
@@ -57,22 +56,23 @@ public class User {
         this.gender = gender;
     }
 
-    public User(int user_ID, String f_name, String l_name, String password, String email, String photo, String city, String country, String gender, boolean can_post, String date_of_birth) {
-        this.user_ID = user_ID;
+    public User(int user_ID, String f_name, String l_name, String password, String email, String photo, String city, String country, String gender, Date date_of_birth) {
         this.f_name = f_name;
         this.l_name = l_name;
         this.password = password;
         this.email = email;
-        this.photo = photo;
         this.city = city;
         this.country = country;
         this.gender = gender;
-        this.can_post = can_post;
         this.date_of_birth = date_of_birth;
+        this.profile_picture = photo;
+        this.email = email;
+        this.password = password;
+        this.id = user_ID;
     }
 
     public void setUser_ID(int user_ID) {
-        this.user_ID = user_ID;
+        this.id = user_ID;
     }
 
     public void setF_name(String f_name) {
@@ -92,10 +92,13 @@ public class User {
     }
 
     public void setPhoto(String photo) {
-        this.photo = photo;
+        this.profile_picture = photo;
     }
 
-    public int getUser_ID() {return user_ID; }
+    public int getUser_ID() {
+
+        return id;
+    }
 
     public String getF_name() {
         return f_name;
@@ -114,6 +117,6 @@ public class User {
     }
 
     public String getPhoto() {
-        return photo;
+        return profile_picture;
     }
 }

@@ -1,11 +1,11 @@
 class FollowersController < ApplicationController
  #Returns followers for a specific user with given name. 
-  def find 
-    @user = User.find(params[:user_id])
-    @follower = @user.followers.where(:name => params[:name])
-    render json: @follower if stale?(etag: @follower.all, last_modified: @follower.maximum(:updated_at))
-  end
-
+    def findFollowers
+      @user = User.find(params[:id])
+      @followers = @user.followers.all
+      render json: @followers,  status: :ok
+    end
+    
   #Returns list of followers for a specific user. 
   # GET /followers
   # GET /followers.json
@@ -74,5 +74,4 @@ class FollowersController < ApplicationController
     params.require(:follower).permit(:f_name, :l_name, :email, :city, :country, :date_of_birth, :gender, :profile_picture, :can_post,:user_id)
   end
 
-    
 end

@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,21 +18,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import models.Follower;
 import models.User;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class followers extends ListActivity {
     private int[] photos = new int[]{R.drawable.m};
     private ArrayList<String> userNames;
     private ArrayList<Integer> iconFollowers;
-    private ArrayList<User> followers;
+    private ArrayList<Integer> followersIds;
     private CustomListAdapter adapter2;
     ImageView logo;
     private Button shareButton;
@@ -52,18 +60,52 @@ public class followers extends ListActivity {
         setContentView(R.layout.activity_followers);
        // logo = (ImageView)findViewById(R.id.logo);
        // logo.setImageResource(R.mipmap.bug);
-        followers = new ArrayList<User>();
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
-
-//        followers.add(new User("1","maggie@gmail.com","","","maggie",0));
-
+        final RestAdapter adapter = new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
+        API api = adapter.create(API.class);
+        followersIds = new ArrayList<Integer>();
         userNames = new ArrayList<String>();
-        Iterator<User> iterator = followers.iterator();
+        api.followers(1,new Callback<List<Follower>>() {
+
+            @Override
+            public void success(List<Follower> followers, Response response) {
+                Iterator<Follower> followersNames = followers.iterator();
+                while(followersNames.hasNext()) {
+                    Follower temp = followersNames.next();
+                    followersIds.add(temp.getFollower_id());
+                //    userNames.add(temp.getFollower_id()+"");
+
+                }
+                API api = adapter.create(API.class);
+                Log.i("followers.size", followersIds.size() + "");
+                for(int i = 0; i<followersIds.size(); i++) {
+                    api.getUser(followersIds.get(i), new Callback<User>() {
+                        @Override
+                        public void success(User user, Response response) {
+                            userNames.add(user.getF_name() + " "+ user.getL_name());
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Toast.makeText(getApplicationContext(), "error in getting followers names", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getApplicationContext(), "error in getting followers ids"+ error, Toast.LENGTH_LONG).show();
+            }
+        });
+
+   //     Iterator<User> iterator = followers.iterator();
         iconFollowers = new ArrayList<Integer>();
-        int i = followers.size() - 1;
+        int i = followersIds.size() - 1;
 //        while (i >= 0 & iterator.hasNext()) {
-        userNames.add(iterator.next().getF_name());
+    //    userNames.add(iterator.next().getF_name());
         iconFollowers.add(photos[0]);
 //            i--;
 //        }

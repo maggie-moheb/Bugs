@@ -20,8 +20,6 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private Activity context;
     private ArrayList<String> itemName;
     private ArrayList<Integer> imgId;
-    private ArrayList<String> tempItemname;
-    private ArrayList<Integer> tempImgid;
     public ArrayList<String> getItemName() {
         return itemName;
     }
@@ -43,10 +41,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         this.context = context;
         this.itemName = itemName;
         this.imgId = imgId;
-        tempImgid = new ArrayList<Integer>();
-        tempItemname = new ArrayList<String>();
-        tempImgid.addAll(imgId);
-        tempItemname.addAll(itemName);
+
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -69,12 +64,11 @@ public class CustomListAdapter extends ArrayAdapter<String> {
                 }
             }
         });
-        txtTitle.setText(tempItemname.get(position));
-        imageView.setImageResource(tempImgid.get(position));
+        txtTitle.setText(itemName.get(position));
+//        imageView.setImageResource(imgId.get(position));
         return rowView;
     }
 
-    ;
 
     /**
      * Filter the list of rooms (itemName) matching a certain word
@@ -88,13 +82,13 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         itemName.clear();
         imgId.clear();
 
-        for (int pos = 0; pos < tempItemname.size(); pos++) {
-            String name = tempItemname.get(pos).toLowerCase();
-            if (name.startsWith(charText) || name.contains(" " + charText)) {
-                itemName.add(tempItemname.get(pos));
-                imgId.add(tempImgid.get(pos));
-            }
-        }
+//        for (int pos = 0; pos < tempItemname.size(); pos++) {
+//            String name = tempItemname.get(pos).toLowerCase();
+//            if (name.startsWith(charText) || name.contains(" " + charText)) {
+//                itemName.add(tempItemname.get(pos));
+//                imgId.add(tempImgid.get(pos));
+//            }
+//        }
         notifyDataSetChanged();
     }
 }
