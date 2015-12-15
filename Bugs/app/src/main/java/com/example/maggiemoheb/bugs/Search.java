@@ -2,6 +2,8 @@ package com.example.maggiemoheb.bugs;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import models.User;
 import retrofit.Callback;
@@ -45,8 +48,25 @@ public class Search extends ListActivity {
             }
         });
         Log.i("size of users:", usersNames.size()+"");
-        CustomListAdapter adapter2 = new CustomListAdapter(Search.this, usersNames, new ArrayList<Integer>());
+        final CustomListAdapter adapter2 = new CustomListAdapter(Search.this, usersNames, new ArrayList<Integer>());
         setListAdapter(adapter2);
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                String text = searchBar.getText().toString().toLowerCase(Locale.getDefault());
+                adapter2.filter(text);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
