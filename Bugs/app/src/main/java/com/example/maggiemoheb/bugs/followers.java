@@ -93,6 +93,8 @@ public class followers extends ListActivity {
                         }
                     });
                 }
+                adapter2 = new CustomListAdapter(followers.this, userNames, iconFollowers);
+                setListAdapter(adapter2);
             }
 
             @Override
@@ -109,8 +111,7 @@ public class followers extends ListActivity {
         iconFollowers.add(photos[0]);
 //            i--;
 //        }
-        adapter2 = new CustomListAdapter(followers.this, userNames, iconFollowers);
-        setListAdapter(adapter2);
+
         registerForContextMenu(getListView());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
