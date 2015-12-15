@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,4 +56,13 @@ Rails.application.routes.draw do
   #   end
   resources :users
  # get 'users'=> 'users#index'
+
+
+
+get '/post/:post_user_dest/:post_user_id/:post_title/:post_text/:post_photo' , to:'posts#new' , as:'post'
+get '/post/:post_id' , to:'posts#show'
+
+get '/notification/:user_id/:follower_id/:post_id/:text' ,to:'notifications#new'
+get '/notification/:user_id' ,to:'notifications#view_all_notification'
+
 end

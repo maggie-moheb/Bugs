@@ -4,8 +4,8 @@ class Post < ActiveRecord::Base
 	has_many   :comments ,dependent: :destroy
 	has_many   :notifications,dependent: :destroy
 	
-	validates :user, presence: true 
-	validates :user_dest, presence: true 
+    validates :user, presence: true
+    validates :user_dest, presence: true
 	validates :text, presence:true
 	validates :title, length: { maximum:255 }, allow_blank: true
 	
@@ -15,4 +15,4 @@ class Post < ActiveRecord::Base
 	scope :Others_topic, -> { where("topic > ?", 3) }
 	
 end
-qqq	qqqq	qqq		qqq																								
+

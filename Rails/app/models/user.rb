@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
 
 	has_many :blockers, :class_name => "Blocker", foreign_key: "blocked_id", dependent: :destroy
 	has_many :blockeds, :class_name => "Blocker", foreign_key: "blocker_id", dependent: :destroy
-	
 
 
 before_save :encrypt_password
@@ -29,16 +28,19 @@ def generate_access_token
       self.access_token = SecureRandom.hex
     end while self.class.exists?(access_token: access_token)
 end
- 
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i 
+
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX, message:"%{value} is not a valid email" },
                    uniqueness: { case_sensitive: false }
-                   
-	validates :f_name,  presence: true, length: { maximum: 25, too_long: "%{count} characters is the maximum allowed"}
-	validates :l_name,  presence: true, length: { maximum: 25, too_long: "%{count} characters is the maximum allowed"}
-	validates :password,  presence: true, length: { minimum: 6, too_short: "6 characters is the minimum allowed"}
-	validates :gender, inclusion: { in: [true,false]}
-	scope :male, -> { where("gender = ?", true) }
+
+   validates :f_name,  presence: true, length: { maximum: 25, too_long: "%{count} characters is the maximum allowed"}
+   validates :l_name,  presence: true, length: { maximum: 25, too_long: "%{count} characters is the maximum allowed"}
+   validates :password,  presence: true, length: { minimum: 6, too_short: "6 characters is the minimum allowed"}
+   validates :gender, inclusion: { in: [true,false]}
+   scope :male, -> { where("gender = ?", true) }
     scope :female, -> { where("gender = ?", false) }
+
+
+
 end
