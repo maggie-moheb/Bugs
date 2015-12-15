@@ -5,23 +5,70 @@ package models;
  */
 public class User {
     int user_ID;
-    String F_name;
-    String L_name;
+    String f_name;
+    String l_name;
     String password;
     String email;
     String photo;
+    String city;
+    String country;
+    String gender;
+    boolean can_post;
 
-    public User() {
+    public boolean isCan_post() {
+        return can_post;
     }
 
-    public User(String photo, String email, String password, String l_name, String f_name, int user_ID) {
+    public void setCan_post(boolean can_post) {
+        this.can_post = can_post;
+    }
 
-        this.photo = photo;
-        this.email = email;
-        this.password = password;
-        L_name = l_name;
-        F_name = f_name;
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    String date_of_birth;
+
+    public String getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public User(int user_ID, String f_name, String l_name, String password, String email, String photo, String city, String country, String gender, boolean can_post, String date_of_birth) {
         this.user_ID = user_ID;
+        this.f_name = f_name;
+        this.l_name = l_name;
+        this.password = password;
+        this.email = email;
+        this.photo = photo;
+        this.city = city;
+        this.country = country;
+        this.gender = gender;
+        this.can_post = can_post;
+        this.date_of_birth = date_of_birth;
     }
 
     public void setUser_ID(int user_ID) {
@@ -29,11 +76,11 @@ public class User {
     }
 
     public void setF_name(String f_name) {
-        F_name = f_name;
+        this.f_name = f_name;
     }
 
     public void setL_name(String l_name) {
-        L_name = l_name;
+        this.l_name = l_name;
     }
 
     public void setPassword(String password) {
@@ -48,17 +95,14 @@ public class User {
         this.photo = photo;
     }
 
-    public int getUser_ID() {
-
-        return user_ID;
-    }
+    public int getUser_ID() {return user_ID; }
 
     public String getF_name() {
-        return F_name;
+        return f_name;
     }
 
     public String getL_name() {
-        return L_name;
+        return l_name;
     }
 
     public String getPassword() {

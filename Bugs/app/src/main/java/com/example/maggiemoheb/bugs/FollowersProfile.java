@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,14 +17,25 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import models.User;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class FollowersProfile extends ActionBarActivity {
     ImageView mImageView;
     ImageView logo;
+    TextView displayName ,displayEmail,displayLocation,displayBirth,gender;
     String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
     int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
+    int userID;
+    int followerID;
+    API api;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
@@ -38,6 +49,12 @@ public class FollowersProfile extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followers_profile);
         mImageView = (ImageView)findViewById(R.id.profilePicture);
+        displayName = (TextView)findViewById(R.id.name);
+        displayEmail = (TextView)findViewById(R.id.email);
+        displayLocation = (TextView)findViewById(R.id.location);
+        displayBirth = (TextView)findViewById(R.id.birthDate);
+        gender = (TextView)findViewById(R.id.gender);
+        getdata();
         // mImageView.setImageResource(R.drawable.profilepic);
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
         roundedImage = new RoundImage(bm);
@@ -136,5 +153,32 @@ public class FollowersProfile extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getdata(){
+        final SharedPreferences SHARED_PREFERENCE =
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        userID = (SHARED_PREFERENCE.getInt("userID", 1));
+        followerID = (SHARED_PREFERENCE.getInt("followerID", 3));
+        final RestAdapter ADAPTER =
+                new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
+        api = ADAPTER.create(API.class);
+        api.getFollower(userID+"",followerID+"",new Callback<User>() {
+            @Override
+            public void success(User u, Response response) {
+                displayName.setText(u.getF_name()+"  "+u.getL_name());
+                displayLocation.setText(u.getCountry()+" , "+u.getCity());
+                displayEmail.setText(u.getEmail());
+                gender.setText(u.getGender());
+                displayBirth.setText(u.getDate_of_birth());
+                mImageView.setImageResource(R.drawable.m);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
     }
 }

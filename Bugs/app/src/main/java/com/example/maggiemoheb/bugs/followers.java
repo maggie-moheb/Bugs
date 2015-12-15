@@ -56,7 +56,7 @@ public class followers extends ListActivity {
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-        followers.add(new User("1","maggie@gmail.com","","","maggie",0));
+//        followers.add(new User("1","maggie@gmail.com","","","maggie",0));
 
         userNames = new ArrayList<String>();
         Iterator<User> iterator = followers.iterator();
