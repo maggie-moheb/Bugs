@@ -232,19 +232,18 @@ public class ViewPost extends ListActivity {
         post_id = mSharedPreference.getInt("postNumber",1);
         api.getComment(User_id,post_id,new Callback<List<Comment>>() {
             @Override
-            public void success(List<Comment> commentsList, Response response) {
+            public void success(final List<Comment> commentsList, Response response) {
+                final CustomCommentListAdapter[] adapter = new CustomCommentListAdapter[1];
                 for(int i = 0;i<commentsList.size();i++){
                    Comment current = commentsList.get(i);
-                    commentTexts.add(i,current.getText());
-                    final int x = i;
+                    commentTexts.add(current.getText());
                     api.getCommenterName(User_id,post_id,current.getUser_id(),new Callback<List<User>>() {
                         @Override
                         public void success(List<User> users, Response response) {
-                            commentWriters.add(x, users.get(0).getF_name() + "  " + users.get(0).getL_name());
-                            commentImages.add(x, users.get(0).getPhoto());
-
-                            CustomCommentListAdapter adapter = new CustomCommentListAdapter(ViewPost.this, commentImages, commentTexts, commentWriters);
-                            setListAdapter(adapter);
+                                commentWriters.add(users.get(0).getF_name() + "  " + users.get(0).getL_name());
+                                commentImages.add(users.get(0).getPhoto());
+                            adapter[0] = new CustomCommentListAdapter(ViewPost.this, commentImages, commentTexts, commentWriters);
+                            setListAdapter(adapter[0]);
                         }
                         @Override
                         public void failure(RetrofitError error) {
@@ -252,7 +251,11 @@ public class ViewPost extends ListActivity {
 
                         }
                     });
+
                 }
+
+//                CustomCommentListAdapter adapter = new CustomCommentListAdapter(ViewPost.this, commentImages, commentTexts, commentWriters);
+//                setListAdapter(adapter);
             }
 
             @Override
@@ -260,6 +263,7 @@ public class ViewPost extends ListActivity {
 
             }
         });
+
     }
     public void comment(){
         api.postComment(commentText.getText().toString(),User_id+"",post_id+"",User_id+"",post_id+"",new Callback<Comment>() {

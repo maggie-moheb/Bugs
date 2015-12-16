@@ -14,6 +14,7 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 
 /**
@@ -25,13 +26,43 @@ public interface API {
     void login(@Field("session[name]") String username, @Field("session[password]") String password, Callback<Session> callback);
 
     @FormUrlEncoded
+    @POST("/users/{id}/posts/")
+    void create_post(@Path("id") int id, @Field("user_dest_id") int user_dest_id,@Field("user_id") int user_id,@Field("title") String title,@Field("text") String body, Callback<Post> callback);
+
+    @FormUrlEncoded
     @POST("/users/{user_id}/posts/{post_id}/comments/")
     void postComment(@Field("comment[text]" )String comment,@Field("comment[user_id]" )String user_id,@Field("comment[post_id]" )String post_id
             ,@Path("user_id")String userID,@Path("post_id")String postID,Callback<Comment>callback);
 
+    @FormUrlEncoded
+    @PUT("/users/{user_id}/")
+    void updateFName(@Field("user[f_name]") String f_name,@Field("user[id]") String id,Callback<User> callback);
+
+    @FormUrlEncoded
+    @PUT("/users/{user_id}/")
+    void updateLName(@Field("user[l_name]") String L_name,@Field("user[id]") String id,Callback<User> callback);
+
+    @FormUrlEncoded
+    @PUT("/users/{user_id}/")
+    void updateBirthDate(@Field("user[date_of_birth]") String birth,@Field("user[id]") String id,Callback<User> callback);
+
+    @FormUrlEncoded
+    @PUT("/users/{user_id}/")
+    void updateGender(@Field("user[gender]") String gender,@Field("user[id]") String id,Callback<User> callback);
+
+    @FormUrlEncoded
+    @PUT("/users/{user_id}/")
+    void updateLocation(@Field("user[city]") String location,@Field("user[id]") String id,Callback<User> callback);
+
+    @FormUrlEncoded
+    @PUT("/users/{user_id}/")
+    void updateEmail(@Field("user[email]") String email,@Field("user[id]") String id,Callback<User> callback);
 
     @DELETE("/session/{token}")
     void logout(@Path("token") String access_token, Callback<Session> callback);
+
+    @DELETE("/users/{user_id}/followers/{follower:id}")
+    void unfollow(@Path("user_id") String user_id,@Path("user_id") String follower_id, Callback<User> callback);
 
     @GET("/users/{userID}/followers/{id}")
     void getFollower(@Path("userID") String userID, @Path("id") String followerID, Callback<User> callback);

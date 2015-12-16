@@ -20,13 +20,26 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import models.Post;
+import models.User;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class FolloweesProfile extends ListActivity {
     private ImageView mImageView;
+    private TextView Name ,email,location,gender,birthDate;
     private Button newPost;
+    private int user_id;
+    private API api;
+    private SharedPreferences mSharedPreference;
     private ArrayList<String> postTitles;
     private ArrayList<String> postImages;
     private ArrayList<String> postTexts;
@@ -48,7 +61,17 @@ public class FolloweesProfile extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followees_profile);
         mImageView = (ImageView)findViewById(R.id.profilePicture);
-        // mImageView.setImageResource(R.drawable.profilepic);
+        Name = (TextView)findViewById(R.id.name);
+        email = (TextView)findViewById(R.id.email);
+        location =(TextView)findViewById(R.id.location);
+        gender = (TextView)findViewById(R.id.gender);
+        birthDate = (TextView)findViewById(R.id.birthDate);
+        mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final RestAdapter ADAPTER =
+                new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
+        api = ADAPTER.create(API.class);
+        user_id = mSharedPreference.getInt("user_id",1);
+        fillProfileData();
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
         roundedImage = new RoundImage(bm);
         mImageView.setImageDrawable(roundedImage);
@@ -61,25 +84,19 @@ public class FolloweesProfile extends ListActivity {
                 startActivity(new Intent(FolloweesProfile.this, CreatePost.class));
             }
         });
+
         postTitles = new ArrayList<>();
         postImages = new ArrayList<>();
         postTexts = new ArrayList<>();
         postWriters = new ArrayList<>();
-        postTitles.add("Apple Macintosh has completed 30 years");
-        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        postTexts.add("I cannot believe apple macintosh has completed 30 years, I was born before it by about 50 years, and now everybody is just using the computer");
-        postWriters.add("Maggie Moheb");
-        postTitles.add("Mark Zuckerberg has finally bought whatsapp");
-        postImages.add("http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/1/24/1390579173532/a52a44b2-7a7d-44ca-804f-f3648f3bd595-620x461.jpeg");
-        postTexts.add("I cannot believe apple macintosh has completed 30 years, I was born before it by about 50 years, and now everybody is just using the computer");
-        postWriters.add("Maggie Moheb");
+//
         CustomPostListAdapter adapter = new CustomPostListAdapter(FolloweesProfile.this, this.postTitles, this.postImages, this.postTexts, this.postWriters);
         setListAdapter(adapter);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        final SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         name = (mSharedPreference.getString("Name", ""));
+        user_id = mSharedPreference.getInt("user_ID",1);
         mAdapter = new SlideBarAdapter(titles, icons, name, profile, this);
         mRecyclerView.setAdapter(mAdapter);
         final GestureDetector mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
@@ -143,6 +160,8 @@ public class FolloweesProfile extends ListActivity {
         };
         Drawer.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+        getPosts();
+
     }
 
 
@@ -169,10 +188,68 @@ public class FolloweesProfile extends ListActivity {
     }
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        startActivity(new Intent(FolloweesProfile.this, ViewPost.class));
+        final String title  = postTitles.get(position);
+        api.getPost(user_id, title, new Callback<List<Post>>() {
+            @Override
+            public void success(List<Post> posts, Response response) {
+                mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editor = mSharedPreference.edit();
+                editor.putInt("postNumber", posts.get(0).getId());
+                editor.putString("postName", posts.get(0).getTitle());
+                editor.putString("postText", posts.get(0).getText());
+                editor.putString("postImage", posts.get(0).getPhoto());
+                editor.apply();
+                editor.commit();
+                startActivity(new Intent(FolloweesProfile.this, ViewPost.class));
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
     public void followersFolloweesActivity(View view) {
         startActivity(new Intent(FolloweesProfile.this, FollowersFolloweesActivity.class));
 
+    }
+    public  void getPosts(){
+        api.getposts(user_id+"",new Callback<List<Post>>() {
+            @Override
+            public void success(List<Post> posts, Response response) {
+                for(int i = 0;i<posts.size();i++){
+                    Post current = posts.get(i);
+                    postImages.add(i,current.getPhoto());
+                    postTexts.add(i,current.getText());
+                    postTitles.add(i,current.getTitle());
+                    postWriters.add(i, Name.getText().toString());
+                }
+                CustomPostListAdapter adapter = new CustomPostListAdapter(FolloweesProfile.this, postTitles,
+                        postImages,postTexts,postWriters);
+                setListAdapter(adapter);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+    public void fillProfileData(){
+        api.getUser(user_id,new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                Name.setText(user.getF_name()+" "+user.getL_name());
+                email.setText(user.getEmail());
+                location.setText(user.getCity()+" "+user.getCountry());
+                gender.setText((user.getGender().equals("true"))?"male":"female");
+                birthDate.setText(user.getDate_of_birth()+" ");
+            }
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 }

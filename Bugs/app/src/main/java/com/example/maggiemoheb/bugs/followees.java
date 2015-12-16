@@ -68,7 +68,6 @@ public class followees extends ListActivity {
                     Follower temp = followersNames.next();
                     followeesIds.add(temp.getFollowee_id());
                 }
-
                 API api = adapter.create(API.class);
                 Log.i("followers.size", followeesIds.size() + "");
                 for(int i = 0; i<followeesIds.size(); i++) {
