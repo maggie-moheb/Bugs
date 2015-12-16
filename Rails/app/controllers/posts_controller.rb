@@ -14,7 +14,17 @@ class PostsController < ApplicationController
     @id = @post
     render json: @id if stale?(@id)
   end
-
+def create
+    @post = Post.new(post_params)
+    if @post.save
+      render json: @post, status: :created
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+  def post_params
+    params.permit(:title, :text, :user_id, :user_dest_id)
+  end 
 def show
     @user=User.find(params[:user_id])
     @post=@user.posts.find(params[:id])
@@ -23,7 +33,7 @@ def show
   
  # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title,:text, :photo,:user_id,:user_dest,:id)
+    params.permit(:title,:text,:user_id,:user_dest_id)
   end
 
 end

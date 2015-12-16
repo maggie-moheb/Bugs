@@ -2,10 +2,10 @@ package com.example.maggiemoheb.bugs;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +15,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import models.Post;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class CreatePost extends ActionBarActivity {
@@ -25,8 +32,12 @@ public class CreatePost extends ActionBarActivity {
     String titles[] = {"Profile", "NewsFeed", "Friends","Notifications","Settings", "Logout"};
     int icons[] = {R.mipmap.profile, R.mipmap.newsfeed, R.mipmap.followees,R.mipmap.notification,R.mipmap.settings, R.mipmap.logout};
     String name;
+    API api;
+    int userID;
+    EditText Title,Text,photo;
     int profile = R.mipmap.bug;
     RecyclerView mRecyclerView;
+    private SharedPreferences mSharedPreference;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
@@ -34,8 +45,12 @@ public class CreatePost extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final RestAdapter ADAPTER =
+                new RestAdapter.Builder().setEndpoint(getResources().getString(R.string.ENDPOINT)).build();
         setContentView(R.layout.activity_create_post);
-
+        api = ADAPTER.create(API.class);
+        mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        userID = mSharedPreference.getInt("user_ID",1);
         logo = (ImageView)findViewById(R.id.logo);
         logo.setImageResource(R.mipmap.bug);
 
@@ -44,10 +59,14 @@ public class CreatePost extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Post Created!!", Toast.LENGTH_LONG).show();
+                createPost();
                 startActivity(new Intent(CreatePost.this, Profile.class));
                 finish();
             }
         });
+        Title = (EditText)findViewById(R.id.editText);
+        Text = (EditText)findViewById(R.id.editText2);
+        photo = (EditText)findViewById(R.id.editText3);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -140,4 +159,20 @@ public class CreatePost extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+    public void createPost(){
+        api.create_post(userID, userID, userID, String.valueOf(Title.getText()),String.valueOf(Text.getText()), new Callback<Post>() {
+            @Override
+            public void success(Post post, Response response) {
+                Toast.makeText(getApplicationContext(), "Post Created with title "+post.getTitle(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getApplicationContext(), "error in creating post!!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        startActivity(new Intent(CreatePost.this, Profile.class));
+        finish();
+    }
+    }

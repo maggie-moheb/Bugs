@@ -73,6 +73,7 @@ public class NewsFeed extends ListActivity {
         // mImageView.setImageResource(R.drawable.profilepic);
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.profilepic);
         roundedImage = new RoundImage(bm);
+        mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         user_ID = (mSharedPreference.getInt("userID", 1));
         profilePic.setImageDrawable(roundedImage);
         profilePic.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +194,7 @@ public class NewsFeed extends ListActivity {
                  editor.putString("postImage",posts.get(0).getPhoto());
                  editor.apply();
                  editor.commit();
-
+                 startActivity(new Intent(NewsFeed.this, ViewPost.class));
 
              }
 
