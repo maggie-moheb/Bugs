@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "bugs-123",
+    "project_number": "500438138246",
+    "name": "Bugs"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500438138246:android:f9f2a8da3ea0e00f",
+        "client_id": "android:com.example.maggiemoheb.bugs",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.maggiemoheb.bugs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500438138246-gf014823hqmjk757l5qjhurs6n5bjr4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maggiemoheb.bugs",
+            "certificate_hash": "AEDBEE7C7673480EA0A81390FA88BF13FD0CE53A"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

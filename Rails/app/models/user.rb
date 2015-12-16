@@ -15,6 +15,13 @@ class User < ActiveRecord::Base
 	has_many :blockeds, :class_name => "Blocker", foreign_key: "blocker_id", dependent: :destroy
 	
 
+def self.authenticate(password)
+  if user.find_by_password(password)
+    return true
+  else
+    return false
+  end
+end
 
 before_save :encrypt_password
 def encrypt_password

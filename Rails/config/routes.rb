@@ -53,4 +53,7 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  get 'users/a/:facebook_access_token'=>'users#showByAccessToken'
+  get 'users/a/:email/:password'=> 'users#login'
+  resources :users
 end

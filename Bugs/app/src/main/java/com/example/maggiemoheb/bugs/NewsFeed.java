@@ -127,6 +127,7 @@ public class NewsFeed extends ListActivity {
                             break;
                         case 6:
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            //LoginActivity.logout();
                             break;
                     }
                     return true;

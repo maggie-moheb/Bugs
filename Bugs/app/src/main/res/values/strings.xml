@@ -23,7 +23,8 @@
     <string name="title_activity_followees">followees</string>
     <string name="openDrawer">drawer_open</string>
     <string name="closeDrawer">drawer_close</string>
-    <string name="facebook_app_id">892627414184492</string>
+    <string name="facebook_app_id">1746293032260564</string>
     <string name="title_activity_view_post">ViewPost</string>
     <string name="title_activity_notifications">Notifications</string>
+    <string name="ENDPOINT">http://127.0.0.1/:3000</string>
 </resources>
